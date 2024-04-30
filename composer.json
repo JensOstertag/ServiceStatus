@@ -1,0 +1,31 @@
+{
+    "name": "jensostertag/php-framework",
+    "description": "Powerful and feature-rich PHP framework designed to simplify web development",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "jensostertag/templify": "~1.0.0",
+        "jensostertag/curl-adapter": "~1.0.0",
+        "jensostertag/geocoding-util": "~1.0.0",
+        "jensostertag/uploadhelper": "~1.0.0",
+        "jensostertag/csvreader": "~1.0.0",
+        "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "pestphp/pest": "~2.33.4"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        },
+        "vendor-dir": "project/src/lib/vendor",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+      "test": "project/src/lib/vendor/bin/pest tests"
+    }
+}

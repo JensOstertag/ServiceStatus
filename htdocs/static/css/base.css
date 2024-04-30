@@ -1,0 +1,82 @@
+:root {
+    /* Colors - Base */
+    --clr-background: #ffffff;
+
+    --clr-font: #000000;
+    --clr-font-light: #aaaaaa;
+    --clr-font-invert: #ffffff;
+
+    --clr-gray: #aaaaaa;
+
+    --clr-primary: #2f7cff;
+    --clr-primary-effect: #275fda;
+    --clr-primary-font: #ffffff;
+
+    --clr-secondary: #ff2f7c;
+    --clr-secondary-effect: #da275f;
+    --clr-secondary-font: #ffffff;
+
+    --clr-shadow: #f0f0f0;
+
+    /* Colors - Info Messages */
+    --clr-infomessage-font: black;
+    --clr-infomessage-none-border: #444444ff;
+    --clr-infomessage-none-background: #44444444;
+    --clr-infomessage-info-border: #275fdaff;
+    --clr-infomessage-info-background: #275fda33;
+    --clr-infomessage-warning-border: #f3c033ff;
+    --clr-infomessage-warning-background: #f3c03344;
+    --clr-infomessage-error-border: #f45c4aff;
+    --clr-infomessage-error-background: #f45c4a44;
+    --clr-infomessage-success-border: #4dbb5fff;
+    --clr-infomessage-success-background: #4dbb5f44;
+
+    /* Colors - Header & Footer */
+    --clr-header-background: #ffffff;
+    --clr-header-font: #000000;
+    --clr-footer-background: #ffffff;
+    --clr-footer-font: #666666;
+
+    /* Spacing */
+    --spc-default: 1em;
+    --spc-content-side: 10%;
+
+    /* Borders */
+    --brd-thickness: 1px;
+    --brd-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --spc-content-side: 10%;
+
+        --brd-thickness: 1px;
+        --brd-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --spc-content-side: 5%;
+
+        --brd-thickness: 1px;
+        --brd-radius: 5px;
+    }
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--clr-background);
+}
+
+main {
+    min-height: 90vh;
+
+    padding: var(--spc-default) var(--spc-content-side);
+}
+
+section {
+    margin-bottom: 1em;
+}

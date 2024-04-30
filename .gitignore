@@ -1,0 +1,15 @@
+# Ignore .ini files
+*.ini
+
+# Ignore files that contain sensible information such as passwords or secret keys
+*.inc.php
+/secrets/*.secret.json
+
+# Ignore PhpStorm files
+.idea/
+
+# Ignore composer files
+vendor/
+
+# Ignore log files
+/logs/

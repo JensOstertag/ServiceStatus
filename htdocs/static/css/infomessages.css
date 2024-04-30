@@ -1,0 +1,43 @@
+.infomessages-list {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-gap: var(--spc-default);
+}
+
+.infomessages-list .infomessage {
+    display: inline-block;
+    box-sizing: border-box;
+
+    padding: var(--spc-default);
+
+    border: var(--brd-thickness) solid;
+    border-radius: var(--brd-radius);
+
+    color: var(--clr-infomessage-font);
+    background-color: var(--clr-infomessage-none-background);
+    border-color: var(--clr-infomessage-none-border);
+}
+
+.infomessages-list .infomessage:last-child {
+    margin-bottom: var(--spc-default);
+}
+
+.infomessages-list .infomessage[message-type="info"] {
+    background-color: var(--clr-infomessage-info-background);
+    border-color: var(--clr-infomessage-info-border);
+}
+
+.infomessages-list .infomessage[message-type="warning"] {
+    background-color: var(--clr-infomessage-warning-background);
+    border-color: var(--clr-infomessage-warning-border);
+}
+
+.infomessages-list .infomessage[message-type="error"] {
+    background-color: var(--clr-infomessage-error-background);
+    border-color: var(--clr-infomessage-error-border);
+}
+
+.infomessages-list .infomessage[message-type="success"] {
+    background-color: var(--clr-infomessage-success-background);
+    border-color: var(--clr-infomessage-success-border);
+}

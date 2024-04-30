@@ -1,0 +1,55 @@
+/*
+ *  Import Font by a Link:
+ *
+ *  @font-face {
+ *      font-family: "Font";
+ *      src: url(https://url.com/font.woff2);
+ *  }
+ *
+ *  The Font can then be used in CSS by "Font".
+ */
+
+* {
+    font-family: sans-serif;
+    font-size: 1em;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 1.9em;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 1.6em;
+    font-weight: 800;
+}
+
+h3 {
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+}
+
+h4, h5, h6 {
+    font-weight: 800;
+}
+
+p {
+    max-width: 600px;
+}
+
+p,
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 0.5em 0;
+}
+
+a {
+    color: var(--clr-primary);
+    text-decoration: none;
+}
