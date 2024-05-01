@@ -8,6 +8,4 @@
 # │ │ │ │ ┌───── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │
 # * * * * * command to be executed
-#
-# Example:
-# * * * * * php /app/project/cronjobs/cronjob-example.php
+* * * * * php /app/project/cronjobs/status-check.php
