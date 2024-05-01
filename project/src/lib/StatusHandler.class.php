@@ -53,7 +53,7 @@ class StatusHandler {
             if($latestStatusObject->getOutageType() !== $status["status"]->value) {
                 // The status has changed since the last check, invalidate the last status object and create a new one
                 $latestStatusObject->setLatest(false);
-                $latestStatusObject->setInvalidatedAt(new DateTime());
+                $latestStatusObject->setInvalidatedAt(DateFormatter::technicalDateTime(new DateTime()));
                 Status::dao()->save($latestStatusObject);
 
                 $statusObject->setServiceId($service->getId());
@@ -65,7 +65,7 @@ class StatusHandler {
         }
 
         $statusObject->setOutageType($status["status"]->value);
-        $statusObject->setDuration($status["duration"]);
+        $statusObject->setRtt($status["duration"]);
         $statusObject->setResponseCode($status["responseCode"]);
         $statusObject->setUpdated(new DateTime());
         Status::dao()->save($statusObject);

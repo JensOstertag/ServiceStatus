@@ -6,6 +6,8 @@ class Service extends GenericObject {
     public ?int $partialOutageThreshold = null;
     public ?int $fullOutageThreshold = null;
     public ?int $expectedResponseCode = null;
+    public ?int $incidentId = null;
+    public ?int $priority = null;
 
     public function getName(): ?string {
         return $this->name;
@@ -45,5 +47,21 @@ class Service extends GenericObject {
 
     public function setExpectedResponseCode(?int $expectedResponseCode): void {
         $this->expectedResponseCode = $expectedResponseCode;
+    }
+
+    public function getIncidentId(): ?int {
+        return $this->incidentId;
+    }
+
+    public function setIncidentId(?int $incidentId): void {
+        $this->incidentId = $incidentId;
+    }
+
+    public function getPriority(): ?int {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): void {
+        $this->priority = $priority;
     }
 }

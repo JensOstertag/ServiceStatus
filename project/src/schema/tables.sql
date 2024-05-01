@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `Service` (
     `partialOutageThreshold` INT NULL,
     `fullOutageThreshold` INT NULL,
     `expectedResponseCode` INT NULL,
+    `priority` INT NOT NULL DEFAULT 0,
     `created` DATETIME NOT NULL,
     `updated` DATETIME NOT NULL,
     PRIMARY KEY (`id`)
@@ -44,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `Status` (
     `latest` TINYINT NOT NULL DEFAULT 0,
     `invalidatedAt` DATETIME NULL,
     `outageType` SMALLINT NOT NULL,
-    `duration` INT NULL,
+    `rtt` INT NULL,
     `responseCode` INT NULL,
     `incidentId` INT NULL,
     `created` DATETIME NOT NULL,

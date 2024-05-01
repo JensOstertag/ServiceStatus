@@ -26,6 +26,17 @@ class DateFormatter {
     }
 
     /**
+     * Parses the given technical date string to a DateTime
+     * @param string $date
+     * @return DateTime
+     */
+    public static function parseTechnicalDate(string $date): DateTime {
+        $dateTime = DateTime::createFromFormat(Config::$DATETIME_SETTINGS["DATE_TECHNICAL"], $date);
+        $dateTime->modify("midnight");
+        return $dateTime;
+    }
+
+    /**
      * Returns the regular expression for the technical date format
      * @return string
      */

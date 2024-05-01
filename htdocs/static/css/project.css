@@ -36,6 +36,12 @@
     font-weight: bolder;
 }
 
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spc-default);
+}
+
 .services .service .service-details {
     display: flex;
     justify-content: space-between;
@@ -66,17 +72,17 @@
 
 .services .service .service-status .status-history .status-history-element .tooltip {
     display: none;
+    flex-direction: column;
     position: absolute;
     top: calc(3 * var(--spc-default));
-    left: calc(50% - 7.5em);
-    width: 15em;
+    left: calc(50% - 10em);
+    width: 20em;
     padding: var(--spc-default);
+    gap: calc(var(--spc-default) / 2);
     box-sizing: border-box;
     z-index: 1;
 
     background-color: var(--clr-background);
-
-    font-size: smaller;
 
     border: 1px solid var(--clr-gray);
     border-radius: var(--brd-radius);
@@ -100,7 +106,19 @@
 }
 
 .services .service .service-status .status-history .status-history-element:hover .tooltip {
-    display: block;
+    display: flex;
+}
+
+.services .service .service-status .status-history .status-history-element .tooltip > p {
+    font-weight: bolder;
+}
+
+.services .service .service-status .status-history .status-history-element .tooltip .status-history-incident {
+    font-size: smaller;
+}
+
+.services .service .service-status .status-history .status-history-element .tooltip .status-history-incident p:first-of-type {
+    font-weight: bolder;
 }
 
 .services .service .service-status .status-legend {

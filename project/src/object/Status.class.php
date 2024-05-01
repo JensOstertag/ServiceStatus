@@ -3,9 +3,9 @@
 class Status extends GenericObject {
     public ?string $serviceId = null;
     public bool $latest = false;
-    public ?DateTime $invalidatedAt = null;
+    public ?string $invalidatedAt = null;
     public ?int $outageType = null;
-    public ?int $duration = null;
+    public ?int $rtt = null;
     public ?int $responseCode = null;
     public ?string $incidentId = null;
 
@@ -25,11 +25,11 @@ class Status extends GenericObject {
         $this->latest = $latest;
     }
 
-    public function getInvalidatedAt(): ?DateTime {
+    public function getInvalidatedAt(): ?string {
         return $this->invalidatedAt;
     }
 
-    public function setInvalidatedAt(?DateTime $invalidatedAt): void {
+    public function setInvalidatedAt(?string $invalidatedAt): void {
         $this->invalidatedAt = $invalidatedAt;
     }
 
@@ -41,12 +41,12 @@ class Status extends GenericObject {
         $this->outageType = $outageType;
     }
 
-    public function getDuration(): ?int {
-        return $this->duration;
+    public function getRtt(): ?int {
+        return $this->rtt;
     }
 
-    public function setDuration(?int $duration): void {
-        $this->duration = $duration;
+    public function setRtt(?int $rtt): void {
+        $this->rtt = $rtt;
     }
 
     public function getResponseCode(): ?int {
@@ -63,5 +63,95 @@ class Status extends GenericObject {
 
     public function setIncidentId(?string $incidentId): void {
         $this->incidentId = $incidentId;
+    }
+
+    public function getStartDate(?DateTime $day = null): DateTime {
+        if($day === null) {
+            return $this->getCreated();
+        }
+
+        $createdMidnight = clone $this->getCreated();
+        $createdMidnight->modify("midnight");
+        $dayMidnight = clone $day;
+        $dayMidnight->modify("midnight");
+        if($createdMidnight == $dayMidnight) {
+            return $this->getCreated();
+        } else {
+            return $dayMidnight;
+        }
+    }
+
+    public function getEndDate(?DateTime $day = null): ?DateTime {
+        if($this->getInvalidatedAt() === null) {
+            return null;
+        }
+
+        $invalidated = DateFormatter::parseTechnicalDateTime($this->getInvalidatedAt());
+
+        if($day === null) {
+            return DateFormatter::parseTechnicalDateTime($this->getInvalidatedAt());
+        }
+
+        $invalidatedMidnight = clone $invalidated;
+        $invalidatedMidnight->modify("midnight");
+        $dayMidnight = clone $day;
+        $dayMidnight->modify("midnight");
+        if($invalidatedMidnight == $dayMidnight) {
+            return $invalidated;
+        } else {
+            return $dayMidnight->modify("23:59:59");
+        }
+    }
+
+    public function getDuration(?DateTime $day = null): ?string {
+        $startDate = $this->getStartDate($day);
+        $endDate = $this->getEndDate($day);
+        if($endDate === null) {
+            return null;
+        }
+        $timeDiff = $startDate->diff($endDate);
+
+        $minutes = $timeDiff->i;
+        $hours = $timeDiff->h;
+        $days = $timeDiff->d;
+        $months = $timeDiff->m;
+        $years = $timeDiff->y;
+        if($timeDiff->s >= 30) {
+            $minutes++;
+        }
+        if($minutes >= 60) {
+            $hours += floor($minutes / 60);
+            $minutes = $minutes % 60;
+        }
+        if($hours >= 24) {
+            $days += floor($hours / 24);
+            $hours = $hours % 24;
+        }
+        if($days >= 30) {
+            $months += floor($days / 30);
+            $days = $days % 30;
+        }
+        if($months >= 12) {
+            $years += floor($months / 12);
+            $months = $months % 12;
+        }
+
+        $durationString = $years > 0 ? $years . "y " : "";
+        $durationString .= $months > 0 ? $months . "m " : "";
+        $durationString .= $days > 0 ? $days . "d " : "";
+        $durationString .= $hours > 0 ? $hours . "h " : "";
+        $durationString .= $minutes > 0 ? $minutes . "min" : "";
+
+        if($durationString === "") {
+            $durationString = "0min";
+        }
+
+        return $durationString;
+    }
+
+    public static function filterDowntimes(array $statuses): array {
+        return array_filter($statuses, function($status) {
+            return !in_array($status->getOutageType(), [ServiceStatus::OPERATIONAL->value, ServiceStatus::UNKNOWN->value]);
+        });
     }
 }

@@ -70,7 +70,7 @@ html, body {
 .container {
     max-width: 768px;
     margin: 0 auto;
-    padding: 10vh calc(2 * var(--spc-default));
+    padding: 2.5vh calc(2 * var(--spc-default));
     box-sizing: border-box;
 }
 
