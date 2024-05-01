@@ -24,7 +24,7 @@ class StatusHandler {
         if($responseCode !== $service->getExpectedResponseCode()) {
             $status = ServiceStatus::PARTIAL_OUTAGE;
 
-            if($responseCode <= 0 || ($responseCode >= 500 && $responseCode <= 599)) {
+            if($responseCode <= 0 || ($responseCode >= 400 && $responseCode <= 599)) {
                 $status = ServiceStatus::FULL_OUTAGE;
             }
         }

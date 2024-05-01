@@ -1,0 +1,112 @@
+:root {
+    --clr-status-operational: #4dbb5f;
+    --clr-status-operational-font: var(--clr-font-invert);
+    --clr-status-partial: #f3c033;
+    --clr-status-partial-font: var(--clr-font-invert);
+    --clr-status-full: #f45c4a;
+    --clr-status-full-font: var(--clr-font);
+    --clr-status-unknown: #444444;
+    --clr-status-unknown-font: var(--clr-font);
+}
+
+*[data-status] {
+    background-color: var(--clr-status-unknown);
+    color: var(--clr-status-unknown-font);
+}
+
+*[data-status="OPERATIONAL"] {
+    background-color: var(--clr-status-operational);
+    color: var(--clr-status-operational-font);
+}
+
+*[data-status="PARTIAL_OUTAGE"] {
+    background-color: var(--clr-status-partial);
+    color: var(--clr-status-partial-font);
+}
+
+*[data-status="FULL_OUTAGE"] {
+    background-color: var(--clr-status-full);
+    color: var(--clr-status-full-font);
+}
+
+.summarization-status {
+    padding: var(--spc-default);
+    border-radius: var(--brd-radius);
+
+    font-weight: bolder;
+}
+
+.services .service .service-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spc-default);
+}
+
+.services .service .service-details .current-status {
+    padding: calc(var(--spc-default) / 4);
+    border-radius: calc(1rem);
+
+    font-size: smaller;
+}
+
+.services .service .service-status .status-history {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.services .service .service-status .status-history .status-history-element {
+    width: 100%;
+    height: calc(2 * var(--spc-default));
+    position: relative;
+
+    border-radius: calc(var(--spc-default) / 2);
+}
+
+.services .service .service-status .status-history .status-history-element .tooltip {
+    display: none;
+    position: absolute;
+    top: calc(3 * var(--spc-default));
+    left: calc(50% - 7.5em);
+    width: 15em;
+    padding: var(--spc-default);
+    box-sizing: border-box;
+    z-index: 1;
+
+    background-color: var(--clr-background);
+
+    font-size: smaller;
+
+    border: 1px solid var(--clr-gray);
+    border-radius: var(--brd-radius);
+}
+
+.services .service .service-status .status-history .status-history-element .tooltip i {
+    position: absolute;
+    bottom: calc(100% - var(--spc-default) / 2);
+    left: calc(50% - var(--spc-default) / 2);
+    width: var(--spc-default);
+    height: var(--spc-default);
+    overflow: hidden;
+    z-index: 2;
+
+    background-color: var(--clr-background);
+
+    border-top: 1px solid var(--clr-gray);
+    border-left: 1px solid var(--clr-gray);
+
+    transform: rotate(45deg);
+}
+
+.services .service .service-status .status-history .status-history-element:hover .tooltip {
+    display: block;
+}
+
+.services .service .service-status .status-legend {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--clr-font-light);
+    font-size: smaller;
+}
