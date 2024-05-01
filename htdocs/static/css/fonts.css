@@ -9,15 +9,20 @@
  *  The Font can then be used in CSS by "Font".
  */
 
+@font-face {
+    font-family: "Inter";
+    src: url("https://cdn.jens-ostertag.de/fonts/Inter/font.php");
+}
+
 * {
-    font-family: sans-serif;
+    font-family: "Inter", "Segoe UI", "Helvetica Neue", sans-serif;
     font-size: 1em;
-    line-height: 1.6;
+    line-height: 1.3;
     font-weight: 400;
 }
 
 h1 {
-    font-size: 1.9em;
+    font-size: 2.1em;
     font-weight: 800;
 }
 
@@ -31,8 +36,16 @@ h3 {
     font-weight: 800;
 }
 
+h1, h2 {
+    display: inline-block;
+
+    background: -webkit-linear-gradient(45deg, var(--clr-secondary), var(--clr-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 h1, h2, h3 {
-    line-height: 1.2;
+    line-height: 1.15;
     letter-spacing: -0.015em;
 }
 
@@ -40,16 +53,42 @@ h4, h5, h6 {
     font-weight: 800;
 }
 
-p {
-    max-width: 600px;
-}
-
 p,
 h1, h2, h3, h4, h5, h6 {
-    margin: 0 0 0.5em 0;
+    color: var(--clr-font);
+    margin: 0 0 calc(2 * var(--spc-default)) 0;
 }
 
 a {
+    background: -webkit-linear-gradient(45deg, var(--clr-secondary), var(--clr-primary));
+    -webkit-background-clip: text;
+
     color: var(--clr-primary);
     text-decoration: none;
+
+    transition: -webkit-text-fill-color 400ms ease-in-out;
+}
+
+a:hover {
+    -webkit-text-fill-color: transparent;
+}
+
+ul {
+    margin: 0 0 calc(2 * var(--spc-default)) 0;
+    padding-left: var(--spc-default);
+    list-style-type: none;
+}
+
+ul li {
+    display: flex;
+    color: var(--clr-font);
+}
+
+ul li::before {
+    content: "\2022";
+    margin-right: var(--spc-default);
+}
+
+ul li .li-container {
+    display: block;
 }

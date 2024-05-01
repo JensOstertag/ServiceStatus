@@ -1,9 +1,9 @@
 <?php
-    use jensostertag\Templify\Templify;
+use jensostertag\Templify\Templify;
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <?php // Encoding ?>
         <meta charset="utf-8">
@@ -14,13 +14,13 @@
         <title><?php
             output(
                 (
-                        Templify::getConfig("WEBSITE_TITLE") !== null ?
-                            Templify::getConfig("WEBSITE_TITLE") . " - "
-                        :
-                            ""
+                Templify::getConfig("WEBSITE_TITLE") !== null ?
+                    Templify::getConfig("WEBSITE_TITLE") . " - "
+                    :
+                    ""
                 ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
             );
-        ?></title>
+            ?></title>
         <link rel="icon" href="<?php output(Config::$PROJECT_SETTINGS["PROJECT_FAVICON"]); ?>" type="image/x-icon">
 
         <?php // Basic SEO ?>
@@ -30,14 +30,14 @@
 
         <?php // OpenGraph SEO ?>
         <meta property="og:title" content="<?php
-            output(
-                (
-                    Templify::getConfig("WEBSITE_TITLE") !== null ?
-                        Templify::getConfig("WEBSITE_TITLE") . " - "
-                    :
-                        ""
-                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
-            );
+        output(
+            (
+            Templify::getConfig("WEBSITE_TITLE") !== null ?
+                Templify::getConfig("WEBSITE_TITLE") . " - "
+                :
+                ""
+            ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+        );
         ?>">
         <meta property="og:description" content="<?php output(SEO::getDescription()); ?>">
         <meta property="og:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
@@ -50,14 +50,14 @@
         <?php // Twitter SEO ?>
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="<?php
-            output(
-                (
-                    Templify::getConfig("WEBSITE_TITLE") !== null ?
-                        Templify::getConfig("WEBSITE_TITLE") . " - "
-                    :
-                        ""
-                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
-            );
+        output(
+            (
+            Templify::getConfig("WEBSITE_TITLE") !== null ?
+                Templify::getConfig("WEBSITE_TITLE") . " - "
+                :
+                ""
+            ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+        );
         ?>">
         <meta name="twitter:description" content="<?php output(SEO::getDescription()); ?>">
         <meta name="twitter:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
@@ -76,55 +76,36 @@
         <?php // CSS ?>
         <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/base.css")); ?>">
         <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/fonts.css")); ?>">
-
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/header.css")); ?>">
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/footer.css")); ?>">
         <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/infomessages.css")); ?>">
 
         <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/project.css")); ?>">
 
+        <?php // JavaScript ?>
         <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
 
-        <?php // JavaScript ?>
-        <script src="<?php output(Router::staticFilePath("js/sidebar.js")); ?>"></script>
         <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
     <body>
-        <nav>
-            <div class="header-logo">
-                <a href="<?php output(Router::generate(Config::$PROJECT_SETTINGS["PROJECT_URL"])); ?>">
-                    <img src="<?php output(Router::staticFilePath("img/logo.svg")); ?>" alt="Logo">
-                    <span>
-                        <?php output(Config::$PROJECT_SETTINGS["PROJECT_NAME"]); ?>
-                    </span>
-                </a>
+        <script type="module">
+            import Carousel from "<?php output(Router::staticFilePath("js/carousel.js")); ?>";
+
+            Carousel.init();
+        </script>
+
+        <header>
+            <div class="container">
+                <?php if(!empty($breadcrumbs)): ?>
+                    <div class="breadcrumbs margin-half">
+                        <?php foreach($breadcrumbs as $i => $breadcrumb): ?>
+                            <a href="<?php output($breadcrumb["link"]); ?>" <?php if($i >= count($breadcrumbs) - 1): ?>data-last="true"<?php endif; ?>>
+                                <?php output($breadcrumb["name"]); ?>
+                            </a>
+                            <?php if($i < count($breadcrumbs) - 1): ?>
+                                <span>/</span>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
-
-            <ul class="header-navigator header-navigator-default">
-                <?php foreach (Config::$MENU_SETTINGS["MENU_SIDEBAR"] as $displayName => $settings): ?>
-                    <li>
-                        <a href="<?php output($settings["route"]); ?>">
-                            <span><?php output($displayName); ?></span>
-                        </a>
-                    </li>
-                    <hr>
-                <?php endforeach; ?>
-            </ul>
-
-            <div class="header-burger">
-                <div class="l1"></div>
-                <div class="l2"></div>
-                <div class="l3"></div>
-            </div>
-
-            <div class="header-dark-background header-dark-background-default"></div>
-
-            <script>
-                let sidebar = new Sidebar(".header-navigator", ".header-burger", ".header-dark-background");
-            </script>
-        </nav>
-
+        </header>
         <main>
-            <?php
-                Templify::include("infomessages.php");
-            ?>

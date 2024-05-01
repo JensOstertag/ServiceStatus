@@ -13,16 +13,16 @@ services:
         restart: "always"
         environment:
             MYSQL_ROOT_PASSWORD: "root" # ADJUST
-            MYSQL_DATABASE: "framework-app" # ADJUST
-            MYSQL_USER: "framework-app" # ADJUST
-            MYSQL_PASSWORD: "framework-app" # ADJUST
+            MYSQL_DATABASE: "servicestatus" # ADJUST
+            MYSQL_USER: "servicestatus" # ADJUST
+            MYSQL_PASSWORD: "servicestatus" # ADJUST
         volumes:
             - "database:/var/lib/mysql"
         networks:
             - "app"
 
     app:
-        image: "ghcr.io/jensostertag/php-framework:latest" # ADJUST
+        image: "ghcr.io/jensostertag/servicestatus:latest"
         restart: "always"
         volumes:
             - "./secrets:/app/secrets"

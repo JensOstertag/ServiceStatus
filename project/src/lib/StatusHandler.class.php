@@ -1,0 +1,73 @@
+<?php
+
+class StatusHandler {
+    private function getStatus(Service $service): array {
+        $curl = new jensostertag\Curl\Curl();
+        $curl->setUrl($service->getUrl());
+        $curl->setMethod(jensostertag\Curl\Curl::$METHOD_GET);
+        $curl->setHeaders([
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+        ]);
+
+        $time = microtime(true);
+        $curl->execute();
+        $duration = (microtime(true) - $time) * 1000;
+
+        $status = ServiceStatus::OPERATIONAL;
+        if($duration >= $service->getFullOutageThreshold()) {
+            $status = ServiceStatus::FULL_OUTAGE;
+        } else if($duration >= $service->getPartialOutageThreshold()) {
+            $status = ServiceStatus::PARTIAL_OUTAGE;
+        }
+
+        $responseCode = $curl->getHttpCode();
+        if($responseCode !== $service->getExpectedResponseCode()) {
+            $status = ServiceStatus::PARTIAL_OUTAGE;
+
+            if($responseCode <= 0 || ($responseCode >= 500 && $responseCode <= 599)) {
+                $status = ServiceStatus::FULL_OUTAGE;
+            }
+        }
+
+        return [
+            "status" => $status,
+            "duration" => $duration,
+            "responseCode" => $responseCode
+        ];
+    }
+
+    public function updateStatus(Service $service): void {
+        $status = $this->getStatus($service);
+
+        $latestStatusObject = Status::dao()->getObject([
+            "serviceId" => $service->getId(),
+            "latest" => true
+        ]);
+
+        $statusObject = new Status();
+        if(!($latestStatusObject instanceof Status)) {
+            // No latest status object was found, it's being created
+            $statusObject->setServiceId($service->getId());
+            $statusObject->setLatest(true);
+        } else {
+            if($latestStatusObject->getOutageType() !== $status["status"]->value) {
+                // The status has changed since the last check, invalidate the last status object and create a new one
+                $latestStatusObject->setLatest(false);
+                $latestStatusObject->setInvalidatedAt(new DateTime());
+                Status::dao()->save($latestStatusObject);
+
+                $statusObject->setServiceId($service->getId());
+                $statusObject->setLatest(true);
+            } else {
+                // The status hasn't changed since the last check
+                $statusObject = $latestStatusObject;
+            }
+        }
+
+        $statusObject->setOutageType($status["status"]->value);
+        $statusObject->setDuration($status["duration"]);
+        $statusObject->setResponseCode($status["responseCode"]);
+        $statusObject->setUpdated(new DateTime());
+        Status::dao()->save($statusObject);
+    }
+}

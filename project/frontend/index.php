@@ -4,10 +4,9 @@ Templify::setConfig("WEBSITE_TITLE", "Home");
 Templify::include("header.php");
 ?>
 
-<h1>Home</h1>
-<p>
-    Hello, World!
-</p>
+<section class="container">
+    <h1>Service Status</h1>
+</section>
 
 <?php
 Templify::include("footer.php");
