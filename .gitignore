@@ -13,3 +13,7 @@ vendor/
 
 # Ignore log files
 /logs/
+/app-logs/
+
+# Ignore backup files
+/database-backup/

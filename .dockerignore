@@ -1,1 +1,5 @@
+.git/
+/app-logs/
+/logs/
+/database-backup/
 /secrets/*.secret.json

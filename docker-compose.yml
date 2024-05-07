@@ -12,6 +12,7 @@ services:
         image: "mysql:8.2"
         restart: "always"
         environment:
+            TZ: "Europe/Berlin" # ADJUST
             MYSQL_ROOT_PASSWORD: "root" # ADJUST
             MYSQL_DATABASE: "servicestatus" # ADJUST
             MYSQL_USER: "servicestatus" # ADJUST
@@ -24,9 +25,24 @@ services:
     app:
         image: "ghcr.io/jensostertag/servicestatus:latest"
         restart: "always"
+        environment:
+            TZ: "Europe/Berlin" # ADJUST
         volumes:
             - "./secrets:/app/secrets"
+            - "./app-logs:/app/logs"
         ports:
             - "80:80"
         networks:
             - "app"
+
+    backup:
+        image: "ghcr.io/jensostertag/mysql-backup:latest"
+        restart: "always"
+        environment:
+            TZ: "Europe/Berlin" # ADJUST
+            DB_HOST: "database"
+            DB_USER: "servicestatus" # ADJUST
+            DB_PASS: "servicestatus" # ADJUST
+            DB_DATABASE: "servicestatus" # ADJUST
+        volumes:
+            - "./database-backup:/backup"

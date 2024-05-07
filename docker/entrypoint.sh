@@ -1,10 +1,9 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-echo "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts
-service sendmail start
+env > /etc/environment
 
-service php8.2-fpm start
-service nginx start
-service cron start
+php-fpm82
+nginx
+crond
 
 tail -f /dev/null

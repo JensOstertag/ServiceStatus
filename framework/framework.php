@@ -46,3 +46,6 @@ foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
     $classLoader->loadEnums($path);
     $classLoader->loadClasses($path);
 }
+
+// Setup timezone
+date_default_timezone_set(Config::$PROJECT_SETTINGS["TIMEZONE"]);

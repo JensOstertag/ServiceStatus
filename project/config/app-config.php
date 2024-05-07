@@ -10,6 +10,7 @@ Config::$PROJECT_SETTINGS["PROJECT_URL"] = Config::configSecret()["PROJECT_SETTI
 Config::$PROJECT_SETTINGS["PROJECT_FAVICON"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_FAVICON"] ?? Router::staticFilePath("img/favicon.png");
 Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_AUTHOR"] ?? "Author";
 Config::$PROJECT_SETTINGS["PROJECT_VERSION"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_VERSION"] ?? "1.0.0";
+Config::$PROJECT_SETTINGS["TIMEZONE"] = Config::configSecret()["PROJECT_SETTINGS"]["TIMEZONE"] ?? "Europe/Berlin";
 
 // Menu settings
 Config::$MENU_SETTINGS["MENU_SIDEBAR"] = [

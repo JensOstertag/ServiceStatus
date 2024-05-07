@@ -1,30 +1,34 @@
-FROM ubuntu:22.04
+FROM alpine:latest
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN true
+# Create webserver user
+RUN set -x && \
+    adduser -u 1000 -S www-data -G www-data
 
-# Install required packages
-RUN apt update -y && apt upgrade -y && \
-    apt install -y nginx cron software-properties-common
+# Update package manager
+RUN apk update && apk upgrade
+RUN apk --no-cache add tzdata
+
+# Install nginx and PHP
+RUN apk --no-cache add nginx php php-fpm composer
 
 # Install PHP packages
-RUN add-apt-repository ppa:ondrej/php && \
-    apt-get install -y php8.2-fpm && \
-    apt install -y php8.2-mysql php8.2-curl php8.2-gd php8.2-intl php8.2-mbstring composer
-
-# Cleanup
-RUN apt autoremove -y
+RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-curl php-gd php-intl php-mbstring php-xml
 
 # Copy application files
-COPY . /app
+COPY --chown=www-data:www-data . /app
 COPY ./docker/nginx-config /etc/nginx
 COPY ./docker/entrypoint.sh /app
 
-# Complete application setup
-RUN chown -R www-data:www-data /app && \
-    chmod +x /app/entrypoint.sh && \
-    crontab -u www-data /app/project/cronjobs/.crontab && \
-    cd /app && composer install --no-dev --no-interaction
+# Adjust permissions
+RUN mkdir -p /app/logs && \
+    chown -R www-data:www-data /app/logs && \
+    chmod +x /app/entrypoint.sh
+
+# Setup crontab
+RUN crontab -u www-data /app/project/cronjobs/.crontab
+
+# Install composer dependencies
+RUN cd /app && composer install --no-dev --no-interaction
 
 EXPOSE 80
 ENTRYPOINT ["/app/entrypoint.sh"]
