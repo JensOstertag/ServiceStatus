@@ -12,11 +12,12 @@ RUN apk --no-cache add tzdata
 RUN apk --no-cache add nginx php php-fpm composer
 
 # Install PHP packages
-RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-curl php-gd php-intl php-mbstring php-xml
+RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml
 
 # Copy application files
 COPY --chown=www-data:www-data . /app
 COPY ./docker/nginx-config /etc/nginx
+COPY ./docker/php-fpm-config /etc/php82/php-fpm.d
 COPY ./docker/entrypoint.sh /app
 
 # Adjust permissions
