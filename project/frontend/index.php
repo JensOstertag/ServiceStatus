@@ -66,7 +66,7 @@ Templify::include("header.php");
                                                 until
                                                 <?php if($status->getEndDate() !== null): ?>
                                                     <?php output(DateFormatter::visualTime($status->getEndDate())); ?>
-                                                    (<?php output($status->getDuration(new DateTime())); ?>)
+                                                    (<?php output($status->getDuration()); ?>)
                                                 <?php else: ?>
                                                     now
                                                 <?php endif; ?>

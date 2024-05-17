@@ -86,12 +86,6 @@ use jensostertag\Templify\Templify;
         <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
     <body>
-        <script type="module">
-            import Carousel from "<?php output(Router::staticFilePath("js/carousel.js")); ?>";
-
-            Carousel.init();
-        </script>
-
         <header>
             <div class="container">
                 <?php if(!empty($breadcrumbs)): ?>
