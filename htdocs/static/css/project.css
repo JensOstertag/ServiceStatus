@@ -70,17 +70,21 @@
     border-radius: calc(var(--spc-default) / 2);
 }
 
-.services .service .service-status .status-history .status-history-element .tooltip {
+.services .tooltip {
     display: none;
+}
+
+.tippy-arrow {
+    color: var(--clr-gray);
+}
+
+.tippy-content {
+    display: flex;
     flex-direction: column;
-    position: absolute;
-    top: calc(3 * var(--spc-default));
-    left: calc(50% - 10em);
     width: 20em;
     padding: var(--spc-default);
     gap: calc(var(--spc-default) / 2);
     box-sizing: border-box;
-    z-index: 1;
 
     background-color: var(--clr-background);
 
@@ -88,36 +92,15 @@
     border-radius: var(--brd-radius);
 }
 
-.services .service .service-status .status-history .status-history-element .tooltip i {
-    position: absolute;
-    bottom: calc(100% - var(--spc-default) / 2);
-    left: calc(50% - var(--spc-default) / 2);
-    width: var(--spc-default);
-    height: var(--spc-default);
-    overflow: hidden;
-    z-index: 2;
-
-    background-color: var(--clr-background);
-
-    border-top: 1px solid var(--clr-gray);
-    border-left: 1px solid var(--clr-gray);
-
-    transform: rotate(45deg);
-}
-
-.services .service .service-status .status-history .status-history-element:hover .tooltip {
-    display: flex;
-}
-
-.services .service .service-status .status-history .status-history-element .tooltip > p {
+.tippy-content > p {
     font-weight: bolder;
 }
 
-.services .service .service-status .status-history .status-history-element .tooltip .status-history-incident {
+.tippy-content .status-history-incident {
     font-size: smaller;
 }
 
-.services .service .service-status .status-history .status-history-element .tooltip .status-history-incident p:first-of-type {
+.tippy-content .status-history-incident p:first-of-type {
     font-weight: bolder;
 }
 

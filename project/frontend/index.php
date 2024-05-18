@@ -101,6 +101,11 @@ Templify::include("header.php");
         <?php endforeach; ?>
 </section>
 
+<script type="module">
+    import ServiceOverview from "<?php output(Router::staticFilePath("js/ServiceOverview.js")); ?>";
+    ServiceOverview.init();
+</script>
+
 <?php
 Templify::include("footer.php");
 ?>

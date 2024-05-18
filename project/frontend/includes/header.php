@@ -82,6 +82,8 @@ use jensostertag\Templify\Templify;
 
         <?php // JavaScript ?>
         <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
+        <script src="<?php output(Router::staticFilePath("js/lib/popper.min.js")); ?>"></script>
+        <script src="<?php output(Router::staticFilePath("js/lib/tippy.min.js")); ?>"></script>
 
         <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
