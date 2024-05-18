@@ -7,7 +7,9 @@ class Status extends GenericObject {
     public ?int $outageType = null;
     public ?int $rtt = null;
     public ?int $responseCode = null;
-    public ?string $incidentId = null;
+    public ?int $incidentId = null;
+
+    private ?Incident $incident = null;
 
     public function getServiceId(): ?string {
         return $this->serviceId;
@@ -57,11 +59,11 @@ class Status extends GenericObject {
         $this->responseCode = $responseCode;
     }
 
-    public function getIncidentId(): ?string {
+    public function getIncidentId(): ?int {
         return $this->incidentId;
     }
 
-    public function setIncidentId(?string $incidentId): void {
+    public function setIncidentId(?int $incidentId): void {
         $this->incidentId = $incidentId;
     }
 
@@ -147,6 +149,18 @@ class Status extends GenericObject {
         }
 
         return $durationString;
+    }
+
+    public function getIncident(): ?Incident {
+        if($this->incidentId === null) {
+            return null;
+        }
+
+        if(!isset($this->incident)) {
+            $this->incident = Incident::dao()->getObject(["id" => $this->incidentId]);
+        }
+
+        return $this->incident;
     }
 
     public static function filterDowntimes(array $statuses): array {

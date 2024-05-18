@@ -53,7 +53,9 @@ Templify::include("header.php");
                                     <?php foreach(Status::filterDowntimes($history["statusObjects"]) as $status): ?>
                                         <div class="status-history-incident">
                                             <p class="nomargin">
-                                                <?php if($status->getOutageType() === ServiceStatus::FULL_OUTAGE->value): ?>
+                                                <?php if($status->getIncident() !== null): ?>
+                                                    <?php output($status->getIncident()->getName()); ?>
+                                                <?php elseif($status->getOutageType() === ServiceStatus::FULL_OUTAGE->value): ?>
                                                     Full outage
                                                 <?php elseif($status->getOutageType() === ServiceStatus::PARTIAL_OUTAGE->value): ?>
                                                     Partial outage

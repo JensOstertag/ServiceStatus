@@ -14,10 +14,13 @@ class StatusHandler {
         $duration = (microtime(true) - $time) * 1000;
 
         $status = ServiceStatus::OPERATIONAL;
+        $incident = null;
         if($duration >= $service->getFullOutageThreshold()) {
             $status = ServiceStatus::FULL_OUTAGE;
+            $incident = "Extremely high response time";
         } else if($duration >= $service->getPartialOutageThreshold()) {
             $status = ServiceStatus::PARTIAL_OUTAGE;
+            $incident = "Higher response time";
         }
 
         $responseCode = $curl->getHttpCode();
@@ -26,13 +29,19 @@ class StatusHandler {
 
             if($responseCode <= 0 || ($responseCode >= 400 && $responseCode <= 599)) {
                 $status = ServiceStatus::FULL_OUTAGE;
+                if($responseCode <= 0) {
+                    $incident = "Service is not responding";
+                } else {
+                    $incident = "Internal error occurred";
+                }
             }
         }
 
         return [
             "status" => $status,
             "duration" => $duration,
-            "responseCode" => $responseCode
+            "responseCode" => $responseCode,
+            "incident" => $incident
         ];
     }
 
@@ -64,10 +73,21 @@ class StatusHandler {
             }
         }
 
+        $incident = null;
+        if($status["incident"] !== null) {
+            $incident = new Incident();
+            $incident->setName($status["incident"]);
+            $incident->setDate(DateFormatter::technicalDate(new DateTime()));
+            Incident::dao()->save($incident);
+        }
+
         $statusObject->setOutageType($status["status"]->value);
         $statusObject->setRtt($status["duration"]);
         $statusObject->setResponseCode($status["responseCode"]);
         $statusObject->setUpdated(new DateTime());
+        if($incident !== null) {
+            $statusObject->setIncidentId($incident->getId());
+        }
         Status::dao()->save($statusObject);
     }
 }
