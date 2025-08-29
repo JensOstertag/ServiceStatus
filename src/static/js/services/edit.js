@@ -26,6 +26,32 @@ export const init = async () => {
             });
         });
     }
+
+    // Setup listeners for monitoring setting checkboxes
+    const setupCheckbox = (monitoringType) => {
+        const handler = () => {
+            const checked = document.querySelector("#monitoring-" + monitoringType + "-enabled").checked;
+            if(checked) {
+                document.querySelector("#monitoring-" + monitoringType + "-details").classList.remove("hidden");
+                document.querySelectorAll("#monitoring-" + monitoringType + "-details input").forEach((input) => {
+                    input.setAttribute("required", "");
+                });
+            } else {
+                document.querySelector("#monitoring-" + monitoringType + "-details").classList.add("hidden");
+                document.querySelectorAll("#monitoring-" + monitoringType + "-details input").forEach((input) => {
+                    input.removeAttribute("required");
+                });
+            }
+        }
+
+        document.querySelector("#monitoring-" + monitoringType + "-enabled").addEventListener("change", () => {
+            handler();
+        });
+
+        handler();
+    }
+    setupCheckbox("http");
+    setupCheckbox("ping");
 }
 
 export default { init };

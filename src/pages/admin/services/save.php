@@ -16,7 +16,7 @@ $validation = Validation->create()
         "visible" => CommonValidators::checkbox(),
         "order" => Validation->create()
             ->int()
-            ->build(),
+            ->build()
     ])
     ->build();
 try {
@@ -41,6 +41,46 @@ $service->setSlug($serviceSlug);
 $service->setVisible($post["visible"] === 1);
 $service->setOrder($post["order"]);
 Service::dao()->save($service);
+
+$monitoringSettings = $_POST["monitoringSettings"] ?? [];
+foreach(MonitoringType::cases() as $monitoringType) {
+    if(!isset($monitoringSettings[$monitoringType->name]) || !isset($monitoringSettings[$monitoringType->name]["enabled"]) || $monitoringSettings[$monitoringType->name]["enabled"] != 1) {
+        // Monitoring type not set, delete existing settings
+        $monitoringSetting = MonitoringSettings::dao()->getObject([
+            "serviceId" => $service->getId(),
+            "monitoringType" => $monitoringType->value
+        ]);
+        if($monitoringSetting instanceof MonitoringSettings) {
+            MonitoringSettings::dao()->delete($monitoringSetting);
+        }
+
+        continue;
+    }
+
+    $validator = $monitoringType->getValidator(true);
+    try {
+        $validatedSettings = $validator->getValidatedValue($monitoringSettings[$monitoringType->name]);
+    } catch(\struktal\validation\ValidationException $e) {
+        InfoMessage->error(t("Could not save the \$\$monitoringType\$\$ monitoring settings. Please fill out all the required fields.", [
+            "monitoringType" => $monitoringType->name,
+        ]));
+        continue;
+    }
+
+    $monitoringSetting = MonitoringSettings::dao()->getObject([
+        "serviceId" => $service->getId(),
+        "monitoringType" => $monitoringType->value
+    ]);
+    if(!($monitoringSetting instanceof MonitoringSettings)) {
+        $monitoringSetting = new MonitoringSettings();
+        $monitoringSetting->setServiceId($service->getId());
+        $monitoringSetting->setMonitoringType($monitoringType->value);
+    }
+    $monitoringSetting->setEndpoint($validatedSettings["endpoint"]);
+    $expectation = $monitoringType->parseExpectation($validatedSettings);
+    $monitoringSetting->setExpectation($expectation);
+    MonitoringSettings::dao()->save($monitoringSetting);
+}
 
 Logger->tag("Services")->info("User {$user->getId()} ({$user->getUsername()}) saved the service {$service->getId()} ({$service->getName()})");
 

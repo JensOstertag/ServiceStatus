@@ -18,7 +18,17 @@ try {
 }
 
 $service = $get["service"];
+if($service instanceof Service) {
+    $monitoringSettings = MonitoringSettings::dao()->getObjects([
+        "serviceId" => $service->getId()
+    ]);
+    $reindexedMonitoringSettings = [];
+    foreach($monitoringSettings as $setting) {
+        $reindexedMonitoringSettings[$setting->getMonitoringTypeEnum()->name] = $setting;
+    }
+}
 
 echo Blade->run("admin.services.edit", [
-    "service" => $service ?? null
+    "service" => $service ?? null,
+    "monitoringSettings" => $reindexedMonitoringSettings ?? []
 ]);

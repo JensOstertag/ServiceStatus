@@ -9,7 +9,7 @@
     @component("components.layout.sidebars.sidebaritem", [
         "href" => Router->generate("services"),
         "icon" => "components.icons.service",
-        "active" => in_array(Router->getCalledRouteName(), [ "services" ])
+        "active" => in_array(Router->getCalledRouteName(), [ "services", "services-create", "services-edit" ])
     ])
         {{ t("Services") }}
     @endcomponent

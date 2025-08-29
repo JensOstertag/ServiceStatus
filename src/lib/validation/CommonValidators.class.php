@@ -21,4 +21,53 @@ class CommonValidators {
             ->int(false)
             ->build();
     }
+
+    public static function httpMonitoringSettings(bool $enabled = false): Validator {
+        $validation = Validation->create()
+            ->array();
+        if($enabled) {
+            $validation->required();
+        }
+
+        $validation->children([
+            "enabled" => CommonValidators::checkbox(),
+            "endpoint" => Validation->create()
+                ->string($enabled)
+                ->minLength(1)
+                ->maxLength(256)
+                ->build(),
+            "expectedResponseCode" => Validation->create()
+                ->int($enabled)
+                ->build(),
+            "maxResponseTime" => Validation->create()
+                ->int($enabled)
+                ->minValue(0)
+                ->build()
+        ]);
+
+        return $validation->build();
+    }
+
+    public static function pingMonitoringSettings(bool $enabled = false): Validator {
+        $validation = Validation->create()
+            ->array();
+        if($enabled) {
+            $validation->required();
+        }
+
+        $validation->children([
+            "enabled" => CommonValidators::checkbox(),
+            "endpoint" => Validation->create()
+                ->string($enabled)
+                ->minLength(1)
+                ->maxLength(256)
+                ->build(),
+            "maxResponseTime" => Validation->create()
+                ->int($enabled)
+                ->minValue(0)
+                ->build()
+        ]);
+
+        return $validation->build();
+    }
 }

@@ -28,16 +28,16 @@
                    required>
         </div>
 
-            <div class="{{ TailwindUtil::inputGroup() }} mb-2">
-                <input id="visible"
-                       name="visible"
-                       type="checkbox"
-                       value="1"
-                       class="{{ TailwindUtil::$checkbox }}">
-                <label for="visible" class="{{ TailwindUtil::$inputLabel }}">
-                    {{ t("Visible") }}
-                </label>
-            </div>
+        <div class="{{ TailwindUtil::inputGroup() }} mb-2">
+            <input id="visible"
+                   name="visible"
+                   type="checkbox"
+                   value="1"
+                   class="{{ TailwindUtil::$checkbox }}">
+            <label for="visible" class="{{ TailwindUtil::$inputLabel }}">
+                {{ t("Visible") }}
+            </label>
+        </div>
 
         <div class="{{ TailwindUtil::inputGroup() }} mb-2">
             <label for="order" class="{{ TailwindUtil::$inputLabel }}" data-required>
@@ -51,6 +51,15 @@
                    value="{{ !empty($service) ? $service->getOrder() : "0" }}"
                    placeholder="{{ t("Order") }}"
                    required>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:gap-4">
+            @include("components.monitoring.edit.http", [
+                "monitoringSettings" => $monitoringSettings["HTTP"] ?? null
+            ])
+            @include("components.monitoring.edit.ping", [
+                "monitoringSettings" => $monitoringSettings["PING"] ?? null
+            ])
         </div>
 
         <button type="submit" class="{{ TailwindUtil::button() }} gap-2">
