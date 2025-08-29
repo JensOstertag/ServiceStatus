@@ -9,65 +9,65 @@
     --color-transparent: transparent;
     --color-current: currentColor;
 
-    --color-surface-100: hsl(0, 0%, 97%);
-    --color-surface-200: hsl(0, 0%, 90%);
-    --color-surface-300: hsl(0, 0%, 80%);
-    --color-surface-400: hsl(0, 0%, 70%);
+    --color-surface-100: hsl(0, 0%, 10%);
+    --color-surface-200: hsl(0, 0%, 20%);
+    --color-surface-300: hsl(0, 0%, 30%);
+    --color-surface-400: hsl(0, 0%, 45%);
     --color-surface-500: hsl(0, 0%, 60%);
-    --color-surface-600: hsl(0, 0%, 50%);
-    --color-surface-700: hsl(0, 0%, 40%);
-    --color-surface-800: hsl(0, 0%, 30%);
-    --color-surface-900: hsl(0, 0%, 20%);
+    --color-surface-600: hsl(0, 0%, 70%);
+    --color-surface-700: hsl(0, 0%, 80%);
+    --color-surface-800: hsl(0, 0%, 90%);
+    --color-surface-900: hsl(0, 0%, 97%);
 
-    --color-primary-100: hsl(218, 100%, 97%);
-    --color-primary-200: hsl(218, 100%, 90%);
-    --color-primary-300: hsl(218, 100%, 80%);
-    --color-primary-400: hsl(218, 100%, 70%);
+    --color-primary-100: hsl(218, 100%, 10%);
+    --color-primary-200: hsl(218, 100%, 20%);
+    --color-primary-300: hsl(218, 100%, 30%);
+    --color-primary-400: hsl(218, 100%, 45%);
     --color-primary-500: hsl(218, 100%, 60%);
-    --color-primary-600: hsl(218, 100%, 50%);
-    --color-primary-700: hsl(218, 100%, 40%);
-    --color-primary-800: hsl(218, 100%, 30%);
-    --color-primary-900: hsl(218, 100%, 20%);
+    --color-primary-600: hsl(218, 100%, 70%);
+    --color-primary-700: hsl(218, 100%, 80%);
+    --color-primary-800: hsl(218, 100%, 90%);
+    --color-primary-900: hsl(218, 100%, 97%);
 
-    --color-danger-100: hsl(6, 89%, 97%);
-    --color-danger-200: hsl(6, 89%, 90%);
-    --color-danger-300: hsl(6, 89%, 80%);
-    --color-danger-400: hsl(6, 89%, 70%);
+    --color-danger-100: hsl(6, 89%, 10%);
+    --color-danger-200: hsl(6, 89%, 20%);
+    --color-danger-300: hsl(6, 89%, 30%);
+    --color-danger-400: hsl(6, 89%, 45%);
     --color-danger-500: hsl(6, 89%, 60%);
-    --color-danger-600: hsl(6, 89%, 50%);
-    --color-danger-700: hsl(6, 89%, 40%);
-    --color-danger-800: hsl(6, 89%, 30%);
-    --color-danger-900: hsl(6, 89%, 20%);
+    --color-danger-600: hsl(6, 89%, 70%);
+    --color-danger-700: hsl(6, 89%, 80%);
+    --color-danger-800: hsl(6, 89%, 90%);
+    --color-danger-900: hsl(6, 89%, 97%);
 
-    --color-warning-100: hsl(44, 89%, 97%);
-    --color-warning-200: hsl(44, 89%, 90%);
-    --color-warning-300: hsl(44, 89%, 80%);
-    --color-warning-400: hsl(44, 89%, 70%);
+    --color-warning-100: hsl(44, 89%, 10%);
+    --color-warning-200: hsl(44, 89%, 20%);
+    --color-warning-300: hsl(44, 89%, 30%);
+    --color-warning-400: hsl(44, 89%, 45%);
     --color-warning-500: hsl(44, 89%, 60%);
-    --color-warning-600: hsl(44, 89%, 50%);
-    --color-warning-700: hsl(44, 89%, 40%);
-    --color-warning-800: hsl(44, 89%, 30%);
-    --color-warning-900: hsl(44, 89%, 20%);
+    --color-warning-600: hsl(44, 89%, 70%);
+    --color-warning-700: hsl(44, 89%, 80%);
+    --color-warning-800: hsl(44, 89%, 90%);
+    --color-warning-900: hsl(44, 89%, 97%);
 
-    --color-safe-100: hsl(130, 45%, 97%);
-    --color-safe-200: hsl(130, 45%, 90%);
-    --color-safe-300: hsl(130, 45%, 80%);
-    --color-safe-400: hsl(130, 45%, 70%);
+    --color-safe-100: hsl(130, 45%, 10%);
+    --color-safe-200: hsl(130, 45%, 20%);
+    --color-safe-300: hsl(130, 45%, 30%);
+    --color-safe-400: hsl(130, 45%, 45%);
     --color-safe-500: hsl(130, 45%, 60%);
-    --color-safe-600: hsl(130, 45%, 50%);
-    --color-safe-700: hsl(130, 45%, 40%);
-    --color-safe-800: hsl(130, 45%, 30%);
-    --color-safe-900: hsl(130, 45%, 20%);
+    --color-safe-600: hsl(130, 45%, 70%);
+    --color-safe-700: hsl(130, 45%, 80%);
+    --color-safe-800: hsl(130, 45%, 90%);
+    --color-safe-900: hsl(130, 45%, 97%);
 
-    --color-info-100: hsl(218, 100%, 97%);
-    --color-info-200: hsl(218, 100%, 90%);
-    --color-info-300: hsl(218, 100%, 80%);
-    --color-info-400: hsl(218, 100%, 70%);
+    --color-info-100: hsl(218, 100%, 10%);
+    --color-info-200: hsl(218, 100%, 20%);
+    --color-info-300: hsl(218, 100%, 30%);
+    --color-info-400: hsl(218, 100%, 45%);
     --color-info-500: hsl(218, 100%, 60%);
-    --color-info-600: hsl(218, 100%, 50%);
-    --color-info-700: hsl(218, 100%, 40%);
-    --color-info-800: hsl(218, 100%, 30%);
-    --color-info-900: hsl(218, 100%, 20%);
+    --color-info-600: hsl(218, 100%, 70%);
+    --color-info-700: hsl(218, 100%, 80%);
+    --color-info-800: hsl(218, 100%, 90%);
+    --color-info-900: hsl(218, 100%, 97%);
 }
 
 /*
@@ -104,4 +104,53 @@ h4, h5, h6 {
 a,
 button:not(:disabled) {
     @apply cursor-pointer;
+}
+
+/*
+ * DataTables custom styling
+ */
+.dt-container {
+    @apply flex flex-col gap-2;
+}
+.dt-container .dt-layout-row {
+    @apply flex flex-col-reverse sm:flex-row items-center justify-between w-full gap-2;
+}
+
+/* Style search bar */
+.dt-container .dt-search {
+    @apply inline-block;
+}
+.dt-container .dt-search input {
+    @apply m-0 px-2 py-1 bg-transparent border border-surface-500 outline-primary-500 rounded placeholder:text-surface-500;
+}
+
+/* Move pagination to the center */
+.dt-container .dt-paging {
+    @apply float-none text-center;
+}
+
+/* Style pagination buttons */
+.dt-container .dt-paging .dt-paging-button {
+    @apply m-0 px-4 py-2 inline-flex justify-around border transition-all text-surface-900 bg-transparent border-surface-500 cursor-pointer;
+}
+.dt-container .dt-paging .dt-paging-button.current {
+    @apply text-surface-100 bg-primary-500 border-primary-500;
+}
+.dt-container .dt-paging .dt-paging-button.disabled {
+    @apply text-surface-500 bg-transparent border-surface-500 cursor-default;
+}
+.dt-container .dt-paging .dt-paging-button:hover {
+    @apply bg-surface-200 border-surface-500;
+}
+.dt-container .dt-paging .dt-paging-button.current:hover {
+    @apply text-surface-100 bg-primary-500 border-primary-500;
+}
+.dt-container .dt-paging .dt-paging-button.disabled:hover {
+    @apply bg-transparent border-surface-500 shadow-none;
+}
+.dt-container .dt-paging .dt-paging-button.previous {
+    @apply rounded-l;
+}
+.dt-container .dt-paging .dt-paging-button.next {
+    @apply rounded-r;
 }

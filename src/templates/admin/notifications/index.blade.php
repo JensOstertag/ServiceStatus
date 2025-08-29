@@ -1,5 +1,5 @@
 @component("components.shells.console")
     <h1>
-        {{ t("Dashboard") }}
+        {{ t("Notifications") }}
     </h1>
 @endcomponent

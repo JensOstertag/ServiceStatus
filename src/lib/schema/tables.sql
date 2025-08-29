@@ -15,3 +15,16 @@ CREATE TABLE IF NOT EXISTS `User` (
     UNIQUE KEY (`email`),
     UNIQUE KEY (`oneTimePassword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# Services table
+CREATE TABLE IF NOT EXISTS `Service` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(256) NOT NULL,
+    `slug` VARCHAR(256) NOT NULL,
+    `visible` TINYINT NOT NULL,
+    `order` INT NOT NULL,
+    `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

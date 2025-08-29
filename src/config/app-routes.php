@@ -25,6 +25,15 @@ Router->addRoute("GET", "/auth/logout", "auth/logout.php", "auth-logout");
 
 Router->addRoute("GET", "/admin", "admin/index.php", "admin");
 
+Router->addRoute("GET", "/admin/services", "admin/services/index.php", "services");
+Router->addRoute("POST", "/admin/services/table", "admin/services/table.php", "services-table");
+Router->addRoute("GET", "/admin/services/edit", "admin/services/edit.php", "services-create");
+Router->addRoute("GET", "/admin/services/edit/{i:service}", "admin/services/edit.php", "services-edit");
+Router->addRoute("POST", "/admin/services/save", "admin/services/save.php", "services-save");
+Router->addRoute("GET", "/admin/services/delete/{i:service}", "admin/services/delete.php", "services-delete");
+
+Router->addRoute("GET", "/admin/notifications", "admin/notifications/index.php", "notifications");
+
 // Error routes
 Router->setError400Route(Router->generate("400"));
 Router->setError404Route(Router->generate("404"));

@@ -26,10 +26,10 @@ class TailwindUtil {
         }
 
         // Apply colors
-        $class .= "text-surface-100 bg-{$theme}-500 border-{$theme}-500 outline-{$theme}-500 hover:bg-{$theme}-600 hover:border-{$theme}-600 ";
+        $class .= "text-surface-900 bg-{$theme}-500 border-{$theme}-500 outline-{$theme}-500 hover:bg-{$theme}-600 hover:border-{$theme}-600 ";
 
         // Apply fallback for disabled buttons
-        $class .= "disabled:bg-{$theme}-400 disabled:border-{$theme}-400";
+        $class .= "disabled:bg-{$theme}-600 disabled:border-{$theme}-600";
 
         return $class;
     }

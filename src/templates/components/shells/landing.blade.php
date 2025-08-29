@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="{{ Router->staticFilePath("css/style.css") }}">
 
         {{-- JavaScript --}}
+        <script src="{{ Router->staticFilePath("js/lib/jquery.min.js") }}"></script>
+        <script src="{{ Router->staticFilePath("js/lib/datatables.min.js") }}"></script>
+        <script src="{{ Router->staticFilePath("js/lib/chart.umd.min.js") }}"></script>
         @if(!Config->isProduction())
             <script src="{{ Router->staticFilePath("js/lib/LiveUpdate.js") }}"></script>
         @endif
