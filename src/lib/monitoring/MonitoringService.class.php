@@ -27,7 +27,7 @@ class MonitoringService {
             // If service is not operational, check if there is already an open incident
             $currentIncident = Incident::dao()->getObject([
                 "serviceId" => $settings->getServiceId(),
-                "serviceStatus" => $serviceStatus->value,
+                "status" => $serviceStatus->value,
                 "until" => null
             ]);
             if(!($currentIncident instanceof Incident)) {
@@ -38,7 +38,7 @@ class MonitoringService {
             // Close all other open incidents with higher status
             $otherIncidents = Incident::dao()->getObjects([
                 "serviceId" => $settings->getServiceId(),
-                new \struktal\ORM\DAOFilter(\struktal\ORM\DAOFilterOperator::GREATER_THAN, "serviceStatus", $serviceStatus->value),
+                new \struktal\ORM\DAOFilter(\struktal\ORM\DAOFilterOperator::GREATER_THAN, "status", $serviceStatus->value),
                 "until" => null
             ]);
             foreach($otherIncidents as $incident) {

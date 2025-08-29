@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "ext-curl": "*",
         "ext-json": "*",
+        "ext-intl": "*",
 
         "struktal/struktal-config": "^1.0.1",
         "struktal/struktal-logger": "^1.0.1",
