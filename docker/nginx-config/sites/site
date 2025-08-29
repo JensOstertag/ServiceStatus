@@ -2,11 +2,14 @@ server {
     listen 80;
     listen [::]:80;
 
-    root /app/htdocs;
+    root /app/public;
 
     index index.php index.html index.htm;
 
     location ~* /static/ {
+        access_log off;
+        log_not_found off;
+        expires 7d;
         rewrite ^(.*)/static/(.*)$ /static/$2 break;
     }
 
@@ -15,7 +18,7 @@ server {
     }
 
     location / {
-        rewrite ^/(.*)$ /routes-handler.php last;
+        rewrite ^/(.*)$ /front-controller.php last;
     }
 
     location ~ \.php$ {

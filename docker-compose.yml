@@ -12,7 +12,7 @@ services:
         image: "mysql:8.2"
         restart: "always"
         environment:
-            TZ: "Europe/Berlin" # ADJUST
+            TZ: "UTC"
             MYSQL_ROOT_PASSWORD: "root" # ADJUST
             MYSQL_DATABASE: "servicestatus" # ADJUST
             MYSQL_USER: "servicestatus" # ADJUST
@@ -23,26 +23,27 @@ services:
             - "app"
 
     app:
-        image: "ghcr.io/jensostertag/servicestatus:latest"
+        image: "ghcr.io/jensostertag/servicestatus:latest" # ADJUST
         restart: "always"
         environment:
-            TZ: "Europe/Berlin" # ADJUST
+            TZ: "UTC"
         volumes:
-            - "./secrets:/app/secrets"
+            - "./config:/app/config"
             - "./app-logs:/app/logs"
+            - "./app-files:/app/files"
         ports:
             - "80:80"
         networks:
             - "app"
 
     backup:
-        image: "ghcr.io/jensostertag/mysql-backup:latest"
+        image: "ghcr.io/struktal/mysql-backup:latest"
         restart: "always"
         environment:
-            TZ: "Europe/Berlin" # ADJUST
+            TZ: "UTC"
             DB_HOST: "database"
-            DB_USER: "servicestatus" # ADJUST
-            DB_PASS: "servicestatus" # ADJUST
-            DB_DATABASE: "servicestatus" # ADJUST
+            DB_USER: "struktal-app" # ADJUST
+            DB_PASS: "struktal-app" # ADJUST
+            DB_DATABASE: "struktal-app" # ADJUST
         volumes:
             - "./database-backup:/backup"

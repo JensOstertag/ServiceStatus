@@ -1,0 +1,21 @@
+{
+    "APP_NAME": "ServiceStatus",
+    "APP_URL": "http://localhost:3000",
+    "BASE_URI": "/",
+    "PRODUCTION": true,
+    "LOG_RECIPIENTS": [],
+    "LOG_LEVEL": 6,
+    "DB_HOST": "database",
+    "DB_USER": "servicestatus",
+    "DB_PASS": "servicestatus",
+    "DB_NAME": "servicestatus",
+    "DB_ENABLED": true,
+    "SMTP_HOST": "smtp.localhost",
+    "SMTP_PORT": 25,
+    "SMTP_USER": "username",
+    "SMTP_PASS": "password",
+    "SMTP_SECURE": "tls",
+    "SMTP_AUTH": true,
+    "REDIRECT_ALL_MAILS": false,
+    "REDIRECT_ALL_MAILS_ADDRESS": "mail@struktal"
+}
