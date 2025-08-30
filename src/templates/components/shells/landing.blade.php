@@ -18,7 +18,9 @@
         {{-- JavaScript --}}
         <script src="{{ Router->staticFilePath("js/lib/jquery.min.js") }}"></script>
         <script src="{{ Router->staticFilePath("js/lib/datatables.min.js") }}"></script>
+        <script src="{{ Router->staticFilePath("js/lib/luxon.min.js") }}"></script>
         <script src="{{ Router->staticFilePath("js/lib/chart.umd.min.js") }}"></script>
+        <script src="{{ Router->staticFilePath("js/lib/luxon.chartjs.min.js") }}"></script>
         @if(!Config->isProduction())
             <script src="{{ Router->staticFilePath("js/lib/LiveUpdate.js") }}"></script>
         @endif

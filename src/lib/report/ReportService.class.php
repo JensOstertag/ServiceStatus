@@ -6,7 +6,7 @@ class ReportService {
     public static function getReportData(Service $service, MonitoringType $monitoringType): array {
         $monitoringSettings = MonitoringSettings::dao()->getObject([
             "serviceId" => $service->getId(),
-            "monitoringTypeId" => $monitoringType->value
+            "monitoringType" => $monitoringType->value
         ]);
         if(!$monitoringSettings instanceof MonitoringSettings) {
             return [];
@@ -23,14 +23,36 @@ class ReportService {
         ], "created");
 
         $data = [];
+        $carryDatetime = $start;
+        while($carryDatetime <= $todayMidnight) {
+            $data[$carryDatetime->format("Y-m-d")] = [];
+            $carryDatetime = $carryDatetime->add(new DateInterval("P1D"));
+        }
+
         foreach($rawData as $monitoringResult) {
             $date = $monitoringResult->getCreated()->format("Y-m-d");
             if(!isset($data[$date])) {
-                $data[$date] = [];
+                continue;
             }
+
             $data[$date][] = $monitoringResult;
         }
 
         return $data;
+    }
+
+    public static function getHighestStatus(array $monitoringResults): ?ServiceStatus {
+        if(count($monitoringResults) === 0) {
+            return null;
+        }
+
+        $highestStatus = ServiceStatus::OPERATIONAL;
+        foreach($monitoringResults as $monitoringResult) {
+            if($monitoringResult->getServiceStatusEnum()->value > $highestStatus->value) {
+                $highestStatus = $monitoringResult->getServiceStatusEnum();
+            }
+        }
+
+        return $highestStatus;
     }
 }

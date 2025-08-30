@@ -34,6 +34,8 @@ Router->addRoute("GET", "/admin/services/delete/{i:service}", "admin/services/de
 
 Router->addRoute("GET", "/admin/notifications", "admin/notifications/index.php", "notifications");
 
+Router->addRoute("GET", "/service/{s:slug}", "services/index.php", "services-report");
+
 // Error routes
 Router->setError400Route(Router->generate("400"));
 Router->setError404Route(Router->generate("404"));
