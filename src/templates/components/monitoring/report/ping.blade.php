@@ -4,14 +4,39 @@
 
 <script type="module">
     import * as ServiceReport from "{{ Router->staticFilePath("js/services/report.js") }}";
-    ServiceReport.initPing([
-        @foreach($reportData as $dayData)
-            @foreach($dayData as $data)
-                {
-                    timestamp: "{{ $data->getCreated()->format("Y-m-d H:i:s") }}",
-                    responseTime: {{ $data->getResponseTime() ?? "null" }},
-                },
+    @php
+        $monitoringSettings = null;
+        $firstDate = null;
+        $lastDate = null;
+    @endphp
+    ServiceReport.initPing(
+        [
+            @foreach($reportData as $date => $dayData)
+                @php
+                    if($firstDate === null) {
+                        $firstDate = $date . " 00:00:00";
+                    }
+                    $lastDate = $date . " 00:00:00";
+                @endphp
+                @foreach($dayData as $data)
+                    @php
+                        if($monitoringSettings === null) {
+                            $monitoringSettings = $data->getMonitoringSettings();
+                        }
+                        $parsedCreatedDate = $data->getCreated()->format("Y-m-d H:i:s");
+                        if($parsedCreatedDate > $lastDate) {
+                            $lastDate = $parsedCreatedDate;
+                        }
+                    @endphp
+
+                    {
+                        timestamp: "{{ $data->getCreated()->format("Y-m-d H:i:s") }}",
+                        responseTime: {{ $data->getResponseTime() ?? "null" }},
+                    },
+                @endforeach
             @endforeach
-        @endforeach
-    ])
+        ],
+        "{{ $firstDate }}",
+        "{{ $lastDate }}"
+    )
 </script>

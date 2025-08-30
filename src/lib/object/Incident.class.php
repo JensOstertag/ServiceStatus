@@ -6,6 +6,26 @@ class Incident extends \struktal\ORM\GenericObject {
     public ?DateTime $from = null;
     public ?DateTime $until = null;
 
+    private ?Service $service = null;
+    public function getService(): ?Service {
+        if($this->service === null) {
+            $this->service = Service::dao()->getObject([
+                "id" => $this->getServiceId()
+            ]);
+        }
+
+        return $this->service;
+    }
+
+    public ?ServiceStatus $serviceStatusEnum = null;
+    public function getServiceStatusEnum(): ?ServiceStatus {
+        if($this->serviceStatusEnum === null) {
+            $this->serviceStatusEnum = ServiceStatus::tryFrom($this->getStatus());
+        }
+
+        return $this->serviceStatusEnum;
+    }
+
     public function getServiceId(): ?int {
         return $this->serviceId;
     }

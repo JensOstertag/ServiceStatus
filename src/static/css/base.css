@@ -6,6 +6,8 @@
 @source inline("{dark:,hover:,focus:,disabled:,dark:hover:,dark:focus:,dark:disabled:,disabled:hover:,dark:disabled:hover,}{bg,border,text,fill,outline}-{surface,primary,danger,warning,safe,info}-{100..900..100}");
 
 @theme {
+    --font-sans: "Outfit", "Segoe UI", "Helvetica Neue", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
     --color-transparent: transparent;
     --color-current: currentColor;
 
@@ -80,6 +82,11 @@
  *
  *  The font can then be used in CSS under the name "Font".
  */
+
+@font-face {
+    font-family: "Outfit";
+    src: url("/static/fonts/Outfit.ttf");
+}
 
 h1 {
     @apply text-3xl;
