@@ -1,0 +1,45 @@
+version: "3"
+
+volumes:
+    database:
+        driver: "local"
+
+networks:
+    app:
+
+services:
+    database:
+        image: "mysql:8.2"
+        restart: "no"
+        environment:
+            TZ: "UTC"
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "servicestatus"
+            MYSQL_USER: "servicestatus"
+            MYSQL_PASSWORD: "servicestatus"
+        volumes:
+            - "database:/var/lib/mysql"
+        ports:
+            - "3306:3306"
+        networks:
+            - "app"
+
+    app:
+        build:
+            context: "."
+            dockerfile: "Dockerfile-dev"
+        restart: "no"
+        environment:
+            TZ: "UTC"
+        volumes:
+            - "./struktal:/app/struktal"
+            - "./public:/app/public"
+            - "./src:/app/src"
+            - "./config:/app/config"
+            - "./app-logs:/app/logs"
+            - "./app-files:/app/files"
+        ports:
+            - "3000:80"
+            - "5173:5173"
+        networks:
+            - "app"

@@ -1,5 +1,31 @@
-.git/
-/app-logs/
+# Ignore .ini files
+*.ini
+
+# Ignore PhpStorm files
+.idea/
+
+# Ignore composer files
+vendor/
+
+# Ignore files that contain sensible information such as passwords or secret keys
+/config/*.json
+
+# Ignore log files
 /logs/
+/app-logs/
+
+# Ignore user uploads
+/files/
+/app-files/
+
+# Ignore backup files
 /database-backup/
-/secrets/*.secret.json
+
+# Ignore template cache files
+template-cache/
+
+# Ignore compiled TailwindCSS files
+/src/static/css/style.css
+
+# Ignore symlink from src/static to public/static
+/public/static

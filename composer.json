@@ -1,31 +1,51 @@
 {
-    "name": "jensostertag/php-framework",
-    "description": "Powerful and feature-rich PHP framework designed to simplify web development",
+    "name": "jensostertag/servicestatus",
+    "description": "Web service monitoring application",
+    "version": "v2.0.0-alpha",
+    "type": "project",
     "license": "MIT",
     "require": {
         "php": ">=8.2",
-        "jensostertag/templify": "~1.0.0",
-        "jensostertag/curl-adapter": "~1.0.0",
-        "jensostertag/geocoding-util": "~1.0.0",
-        "jensostertag/uploadhelper": "~1.0.0",
-        "jensostertag/csvreader": "~1.0.0",
         "ext-pdo": "*",
         "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-intl": "*",
+
+        "struktal/struktal-config": "^1.0.1",
+        "struktal/struktal-logger": "^1.0.1",
+        "struktal/struktal-router": "^1.2.1",
+        "struktal/struktal-api": "^1.0.0",
+        "struktal/struktal-orm": "^1.0.2",
+        "struktal/struktal-auth": "^2.0.1",
+        "struktal/struktal-validation": "^1.0.3",
+        "struktal/struktal-translator": "^1.0.0",
+
+        "eftec/bladeone": "^4.19.0",
+        "struktal/struktal-curl": "^1.2.0",
+        "struktal/struktal-phpmailer-wrapper": "^1.0.0",
+        "struktal/struktal-infomessages": "^1.0.0",
+        "struktal/struktal-file-uploads": "^2.0.0",
+        "struktal/struktal-csv-reader": "^1.1.0",
+        "struktal/struktal-geocoding-util": "^1.1.0",
+        "struktal/struktal-composer-reader": "^1.0.0"
     },
     "require-dev": {
-        "pestphp/pest": "~2.33.4"
+        "pestphp/pest": "~3.8.2"
     },
     "config": {
         "platform": {
             "php": "8.2"
         },
-        "vendor-dir": "project/src/lib/vendor",
+        "vendor-dir": "vendor",
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
     },
     "scripts": {
-      "test": "project/src/lib/vendor/bin/pest tests"
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker compose -f docker-compose-dev.yml up --build"
+        ],
+        "test": "vendor/bin/pest tests"
     }
 }

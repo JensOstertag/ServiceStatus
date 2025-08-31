@@ -1,0 +1,49 @@
+FROM alpine:latest
+
+# Update package manager
+RUN apk update && apk upgrade
+RUN apk --no-cache add tzdata
+
+# Install nginx, PHP, composer, nodejs and npm
+RUN apk --no-cache add nginx php83 php83-fpm composer nodejs npm git
+
+# Install PHP packages
+RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-simplexml php-dom php-ctype php-apcu
+
+# Set working directory
+WORKDIR /app
+RUN chown -R nginx:nginx /app
+
+# Copy application files
+COPY --chown=nginx:nginx . .
+COPY --chown=nginx:nginx ./docker/nodejs .
+COPY --chown=nginx:nginx ./docker/nginx-config /etc/nginx
+COPY --chown=nginx:nginx ./docker/php-fpm-config /etc/php83/php-fpm.d
+COPY --chown=nginx:nginx ./docker/entrypoint-dev.sh .
+
+# Adjust permissions
+RUN mkdir -p logs && chown -R nginx:nginx logs && \
+    mkdir -p files && chown -R nginx:nginx files && \
+    mkdir -p template-cache && chown -R nginx:nginx template-cache && \
+    chmod 777 /app/logs && \
+    chmod 777 /app/files && \
+    chmod 777 /app/template-cache && \
+    chmod +x /app/entrypoint-dev.sh
+
+# Link src/static to public/static
+RUN rm -rf /app/public/static && ln -s /app/src/static /app/public/static
+
+# Install composer dependencies
+RUN composer install --no-dev --no-interaction
+
+# Install npm dependencies
+RUN npm install
+
+# Build tailwindcss
+RUN npx @tailwindcss/cli --input src/static/css/base.css --output src/static/css/style.css --minify
+
+# Setup crontab
+RUN crontab -u nginx /app/src/cronjobs/.crontab
+
+EXPOSE 80
+ENTRYPOINT ["/app/entrypoint-dev.sh"]

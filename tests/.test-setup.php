@@ -1,7 +1,7 @@
 <?php
 
-// Project directory: The directory where the project is located in the filesystem
+// Application directory: The directory where the application is located in the filesystem
 chdir("../");
 const __APP_DIR__ = __DIR__ . "/..";
 
-require_once(__APP_DIR__ . "/framework/framework.php");
+require_once(__APP_DIR__ . "/struktal/start.php");
