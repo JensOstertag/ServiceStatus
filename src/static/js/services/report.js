@@ -5,8 +5,9 @@ export const initIncidents = () => {
         tippy(element, {
             allowHTML: true,
             content: element.querySelector(".tooltip").innerHTML,
-            placement: "bottom"
-        })
+            placement: "bottom",
+            theme: "tailwind"
+        });
     });
 }
 
@@ -128,7 +129,14 @@ export const initUptime = async (uptime) => {
 }
 
 export const initHttp = () => {
-    // Nothing to do
+    document.querySelectorAll(".http-tooltip").forEach((element, index) => {
+        tippy(element, {
+            allowHTML: true,
+            content: element.querySelector(".tooltip").innerHTML,
+            placement: "bottom",
+            theme: "tailwind"
+        });
+    });
 }
 
 export const initPing = (data, start, end) => {
@@ -136,7 +144,7 @@ export const initPing = (data, start, end) => {
     let chartData = [];
 
     data.forEach((point, index) => {
-        chartLabels.push(new Date(point.timestamp).toLocaleTimeString());
+        chartLabels.push(new Date(point.timestamp));
         chartData.push(point.responseTime);
     });
 
@@ -152,13 +160,14 @@ export const initPing = (data, start, end) => {
         return gradient;
     }
 
+    console.log(chartData);
+
     const ctx = document.getElementById("pingReportChart").getContext("2d");
     const pingChart = new Chart(ctx, {
         type: "line",
         data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Ping Time (ms)',
                 data: chartData,
                 borderColor: (context) => {
                     const chart = context.chart;
@@ -193,8 +202,8 @@ export const initPing = (data, start, end) => {
                             day: "yyyy-MM-dd"
                         }
                     },
-                    min: new Date(start).toLocaleTimeString(),
-                    max: new Date(end).toLocaleTimeString()
+                    min: new Date(start),
+                    max: new Date(end)
                 },
                 y: {
                     title: {

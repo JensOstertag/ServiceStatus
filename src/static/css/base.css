@@ -161,3 +161,10 @@ button:not(:disabled) {
 .dt-container .dt-paging .dt-paging-button.next {
     @apply rounded-r;
 }
+
+/*
+ * Tippy.js custom styling
+ */
+.tippy-box[data-theme="tailwind"] {
+    @apply p-4 bg-surface-200 text-surface-900;
+}

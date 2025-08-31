@@ -7,4 +7,6 @@
     text-sm font-bold
     data-[required]:after:content-['*'] data-[required]:after:text-primary-500
     placeholder:text-surface-500
+
+    tippy-tooltip
 "></div>

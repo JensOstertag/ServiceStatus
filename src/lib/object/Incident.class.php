@@ -17,7 +17,7 @@ class Incident extends \struktal\ORM\GenericObject {
         return $this->service;
     }
 
-    public ?ServiceStatus $serviceStatusEnum = null;
+    private ?ServiceStatus $serviceStatusEnum = null;
     public function getServiceStatusEnum(): ?ServiceStatus {
         if($this->serviceStatusEnum === null) {
             $this->serviceStatusEnum = ServiceStatus::tryFrom($this->getStatus());
