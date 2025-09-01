@@ -153,4 +153,12 @@ class ReportService {
 
         return $successful / $total;
     }
+
+    public static function getCurrentStatus(Service $service): ServiceStatus {
+        $currentIncidents = Incident::dao()->getObjects([
+            "serviceId" => $service->getId(),
+            "until" => null
+        ]);
+        return self::getHighestIncidentStatus($currentIncidents) ?? ServiceStatus::OPERATIONAL;
+    }
 }

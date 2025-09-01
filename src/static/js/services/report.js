@@ -84,7 +84,7 @@ export const initUptime = async (uptime) => {
                     enabled: false
                 },
                 legend: {
-                    display: true,
+                    display: false,
                     position: "right",
                     labels: {
                         generateLabels: (chart) => {

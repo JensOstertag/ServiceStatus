@@ -1,10 +1,24 @@
 @component("components.shells.landing")
-    <div class="flex mb-8 items-center">
-        <h1 class="w-full">
-            {{ $service->getName() }}
-        </h1>
+    <div class="flex flex-col sm:flex-row mb-8 items-center">
+        <div class="w-full mb-4">
+            <h1 class="mb-1 truncate">
+                {{ $service->getName() }}
+            </h1>
 
-        <div class="w-full h-64">
+            <div class="mb-4 px-2 py-1 rounded-full text-sm truncate w-fit
+                 @switch($currentStatus)
+                     @case(ServiceStatus::OPERATIONAL) bg-safe-500 text-safe-900 @break
+                     @case(ServiceStatus::HIGH_RESPONSE_TIME) bg-warning-500 text-warning-900 @break
+                     @case(ServiceStatus::INTERNAL_ERROR) bg-danger-500 text-danger-900 @break
+                     @case(ServiceStatus::NOT_RESPONDING) bg-danger-500 text-danger-900 @break
+                     @default bg-surface-500 text-surface-900
+                 @endswitch">
+                {{ $currentStatus->getLabelText() }}
+            </div>
+        </div>
+
+
+        <div class="h-64">
             <canvas id="uptimeChart" class="h-full"></canvas>
         </div>
     </div>

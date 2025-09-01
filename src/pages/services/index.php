@@ -26,6 +26,8 @@ if(!$service instanceof Service) {
     Router->redirect(Router->generate("404"));
 }
 
+$currentStatus = ReportService::getCurrentStatus($service);
+
 $uptime = ReportService::getUptime($service);
 
 $httpReports = ReportService::getReportData($service, MonitoringType::HTTP);
@@ -33,6 +35,7 @@ $pingReports = ReportService::getReportData($service, MonitoringType::PING);
 
 echo Blade->run("services.index", [
     "service" => $service,
+    "currentStatus" => $currentStatus,
     "uptime" => $uptime,
     "httpReports" => $httpReports,
     "pingReports" => $pingReports

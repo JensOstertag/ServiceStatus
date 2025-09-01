@@ -1,4 +1,4 @@
-<div class="flex gap-0.5 md:gap-2 mb-1">
+<div class="flex gap-0.5 md:gap-1 lg:gap-2 mb-1">
     @foreach($incidentData as $date => $dayData)
         @php
             $dayStatus = ReportService::getHighestStatus($dayData)

@@ -14,4 +14,13 @@ enum ServiceStatus: int {
             ServiceStatus::NOT_RESPONDING => t("Service is not responding"),
         };
     }
+
+    public function getLabelText(): string {
+        return match($this) {
+            ServiceStatus::OPERATIONAL => t("Operational"),
+            ServiceStatus::HIGH_RESPONSE_TIME => t("High Response Time"),
+            ServiceStatus::INTERNAL_ERROR => t("Internal Error"),
+            ServiceStatus::NOT_RESPONDING => t("Not Responding"),
+        };
+    }
 }
