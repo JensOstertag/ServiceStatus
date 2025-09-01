@@ -4,6 +4,13 @@ enum MonitoringType: int {
     case HTTP = 1;
     case PING = 2;
 
+    public function getName(): string {
+        return match($this) {
+            self::HTTP => t("HTTP monitoring"),
+            self::PING => t("Ping monitoring"),
+        };
+    }
+
     public function getMonitoringService(): MonitoringService {
         return match($this) {
             self::HTTP => new MonitoringServiceHTTP(),

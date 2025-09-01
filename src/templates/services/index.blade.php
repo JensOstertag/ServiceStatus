@@ -23,19 +23,16 @@
         </div>
     </div>
 
-    <div class="mb-8">
-        <h2 class="mb-4">{{ t("HTTP monitoring") }}</h2>
-        @include("components.monitoring.report.http", [
-            "reportData" => $httpReports
-        ])
-    </div>
-
-    <div class="">
-        <h2 class="mb-4">{{ t("Ping monitoring") }}</h2>
-        @include("components.monitoring.report.ping", [
-            "reportData" => $pingReports
-        ])
-    </div>
+    @foreach(MonitoringType::cases() as $type)
+        @if(in_array($type, $enabledMonitoringTypes))
+            <div class="mb-8">
+                <h2 class="mb-4">{{ $type->getName() }}</h2>
+                @include("components.monitoring.report." . strtolower($type->name), [
+                    "reportData" => $reports[$type->value] ?? [],
+                ])
+            </div>
+        @endif
+    @endforeach
 
     <script type="module">
         import * as UptimeReport from "{{ Router->staticFilePath("js/services/report.js") }}";

@@ -24,7 +24,7 @@ if($service instanceof Service) {
     ]);
     $reindexedMonitoringSettings = [];
     foreach($monitoringSettings as $setting) {
-        $reindexedMonitoringSettings[$setting->getMonitoringTypeEnum()->name] = $setting;
+        $reindexedMonitoringSettings[$setting->getMonitoringTypeEnum()->value] = $setting;
     }
 }
 

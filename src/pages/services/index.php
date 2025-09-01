@@ -30,13 +30,23 @@ $currentStatus = ReportService::getCurrentStatus($service);
 
 $uptime = ReportService::getUptime($service);
 
-$httpReports = ReportService::getReportData($service, MonitoringType::HTTP);
-$pingReports = ReportService::getReportData($service, MonitoringType::PING);
+$monitoringSettings = MonitoringSettings::dao()->getObjects([
+    "serviceId" => $service->getId()
+]);
+$enabledMonitoringTypes = [];
+foreach($monitoringSettings as $monitoringSetting) {
+    $enabledMonitoringTypes[] = $monitoringSetting->getMonitoringTypeEnum();
+}
+
+$reports = [];
+foreach(MonitoringType::cases() as $monitoringType) {
+    $reports[$monitoringType->value] = ReportService::getReportData($service, $monitoringType);
+}
 
 echo Blade->run("services.index", [
     "service" => $service,
     "currentStatus" => $currentStatus,
     "uptime" => $uptime,
-    "httpReports" => $httpReports,
-    "pingReports" => $pingReports
+    "enabledMonitoringTypes" => $enabledMonitoringTypes,
+    "reports" => $reports
 ]);

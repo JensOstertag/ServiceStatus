@@ -54,12 +54,11 @@
         </div>
 
         <div class="flex flex-col md:flex-row md:gap-4">
-            @include("components.monitoring.edit.http", [
-                "monitoringSettings" => $monitoringSettings["HTTP"] ?? null
-            ])
-            @include("components.monitoring.edit.ping", [
-                "monitoringSettings" => $monitoringSettings["PING"] ?? null
-            ])
+            @foreach(MonitoringType::cases() as $type)
+                @include("components.monitoring.edit." . strtolower($type->name), [
+                    "monitoringSettings" => $monitoringSettings[$type->value] ?? null
+                ])
+            @endforeach
         </div>
 
         <button type="submit" class="{{ TailwindUtil::button() }} gap-2">
