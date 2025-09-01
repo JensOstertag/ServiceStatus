@@ -6,4 +6,11 @@
     ])
         {{ t("Home") }}
     @endcomponent
+    @component("components.layout.sidebars.sidebaritem", [
+        "href" => Router->generate("admin"),
+        "icon" => "components.icons.dashboard",
+        "active" => in_array(Router->getCalledRouteName(), [ "admin" ])
+    ])
+        {{ t("Dashboard") }}
+    @endcomponent
 </ul>

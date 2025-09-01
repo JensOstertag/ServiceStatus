@@ -1,6 +1,6 @@
 <?php
 
-$user = Auth->enforceLogin(0, Router->generate("index"));
+$user = Auth->enforceLogin(0, Router->generate("auth-login"));
 
 $services = Service::dao()->getObjects();
 

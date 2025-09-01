@@ -67,7 +67,7 @@ export const initUptime = async (uptime) => {
                 label: uptimeTranslation,
                 data: [ uptime, 1 - uptime ],
                 backgroundColor: [
-                    "hsl(130, 45%, 60%)",
+                    "hsl(130, 45%, 45%)",
                     "hsl(6, 89%, 60%)"
                 ],
                 borderWidth: 0,
@@ -110,7 +110,7 @@ export const initUptime = async (uptime) => {
                             text: Math.round(uptime * 1000) / 10 + "%",
                             fontSize: 22,
                             fontFamily: "Outfit",
-                            color: "hsl(130, 45%, 60%)"
+                            color: "hsl(130, 45%, 45%)"
                         },
                         {
                             text: uptimeTranslation,
@@ -153,7 +153,7 @@ export const initPing = (data, start, end) => {
         const chartHeight = chartArea.bottom - chartArea.top;
 
         let gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient.addColorStop(0, "hsl(130, 45%, 60%)");
+        gradient.addColorStop(0, "hsl(130, 45%, 45%)");
         gradient.addColorStop(0.5, "hsl(44, 89%, 60%)");
         gradient.addColorStop(1, "hsl(6, 89%, 60%)");
 

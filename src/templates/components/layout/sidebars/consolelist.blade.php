@@ -1,7 +1,7 @@
 <ul class="flex flex-col gap-2 p-4">
     @component("components.layout.sidebars.sidebaritem", [
         "href" => Router->generate("admin"),
-        "icon" => "components.icons.home",
+        "icon" => "components.icons.dashboard",
         "active" => in_array(Router->getCalledRouteName(), [ "admin" ])
     ])
         {{ t("Dashboard") }}
@@ -19,5 +19,12 @@
         "active" => in_array(Router->getCalledRouteName(), [ "notifications" ])
     ])
         {{ t("Notifications") }}
+    @endcomponent
+    @component("components.layout.sidebars.sidebaritem", [
+        "href" => Router->generate("settings"),
+        "icon" => "components.icons.settings",
+        "active" => in_array(Router->getCalledRouteName(), [ "settings" ])
+    ])
+        {{ t("Settings") }}
     @endcomponent
 </ul>

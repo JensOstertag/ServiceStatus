@@ -54,11 +54,11 @@
     --color-safe-100: hsl(130, 45%, 10%);
     --color-safe-200: hsl(130, 45%, 20%);
     --color-safe-300: hsl(130, 45%, 30%);
-    --color-safe-400: hsl(130, 45%, 45%);
-    --color-safe-500: hsl(130, 45%, 60%);
-    --color-safe-600: hsl(130, 45%, 70%);
-    --color-safe-700: hsl(130, 45%, 80%);
-    --color-safe-800: hsl(130, 45%, 90%);
+    --color-safe-400: hsl(130, 45%, 40%);
+    --color-safe-500: hsl(130, 45%, 45%);
+    --color-safe-600: hsl(130, 45%, 60%);
+    --color-safe-700: hsl(130, 45%, 75%);
+    --color-safe-800: hsl(130, 45%, 85%);
     --color-safe-900: hsl(130, 45%, 97%);
 
     --color-info-100: hsl(218, 100%, 10%);
