@@ -160,8 +160,6 @@ export const initPing = (data, start, end) => {
         return gradient;
     }
 
-    console.log(chartData);
-
     const ctx = document.getElementById("pingReportChart").getContext("2d");
     const pingChart = new Chart(ctx, {
         type: "line",
