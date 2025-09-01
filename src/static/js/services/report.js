@@ -188,7 +188,10 @@ export const initPing = (data, start, end) => {
                         display: false
                     },
                     ticks: {
-                        color: "hsl(0, 0%, 60%)"
+                        color: "hsl(0, 0%, 60%)",
+                        font: {
+                            family: "Outfit"
+                        }
                     },
                     grid: {
                         color: "hsl(0, 0%, 30%)"
@@ -211,7 +214,10 @@ export const initPing = (data, start, end) => {
                         callback: (value) => {
                             return value + " ms";
                         },
-                        color: "hsl(0, 0%, 60%)"
+                        color: "hsl(0, 0%, 60%)",
+                        font: {
+                            family: "Outfit"
+                        }
                     },
                     grid: {
                         color: "hsl(0, 0%, 30%)"
@@ -224,8 +230,7 @@ export const initPing = (data, start, end) => {
                     display: false
                 },
                 tooltip: {
-                    mode: 'index',
-                    intersect: false
+                    enabled: false
                 }
             },
             responsive: true,
