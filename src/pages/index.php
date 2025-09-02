@@ -2,7 +2,7 @@
 
 $visibleServices = Service::dao()->getObjects([
     "visible" => true
-]);
+], "order");
 
 $currentStatuses = [];
 $incidents = [];

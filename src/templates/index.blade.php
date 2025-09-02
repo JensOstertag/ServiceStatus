@@ -21,6 +21,14 @@
             @include("components.monitoring.report.incidents", [
                 "incidentData" => $incidents[$service->getId()] ?? [],
             ])
+
+            <div class="flex justify-end w-full mt-1">
+                <a href="{{ Router->generate("services-report", ["slug" => $service->getSlug()]) }}"
+                   class="px-2 py-1 rounded-full text-sm truncate bg-primary-500 text-primary-900">
+                    {{ t("Monitoring insights") }}
+                    @include("components.icons.right", ["class" => "inline h-5 w-5"])
+                </a>
+            </div>
         </div>
     @endforeach
 

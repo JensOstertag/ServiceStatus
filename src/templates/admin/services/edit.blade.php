@@ -33,7 +33,8 @@
                    name="visible"
                    type="checkbox"
                    value="1"
-                   class="{{ TailwindUtil::$checkbox }}">
+                   class="{{ TailwindUtil::$checkbox }}"
+                   @if(!empty($service) && $service->getVisible()) checked @endif>
             <label for="visible" class="{{ TailwindUtil::$inputLabel }}">
                 {{ t("Visible") }}
             </label>

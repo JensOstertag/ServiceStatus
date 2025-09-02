@@ -2,7 +2,7 @@
 
 $user = Auth->enforceLogin(0, Router->generate("auth-login"));
 
-$services = Service::dao()->getObjects();
+$services = Service::dao()->getObjects([], "order");
 
 $services = array_map(function(Service $service) {
     $array = $service->toArray();
