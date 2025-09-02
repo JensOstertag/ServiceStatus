@@ -25,6 +25,9 @@ Router->addRoute("GET", "/auth/logout", "auth/logout.php", "auth-logout");
 
 Router->addRoute("GET", "/admin", "admin/index.php", "admin");
 
+Router->addRoute("GET", "/admin/settings", "admin/settings/index.php", "settings");
+Router->addRoute("POST", "/admin/settings/save", "admin/settings/save.php", "settings-save");
+
 Router->addRoute("GET", "/admin/services", "admin/services/index.php", "services");
 Router->addRoute("POST", "/admin/services/table", "admin/services/table.php", "services-table");
 Router->addRoute("GET", "/admin/services/edit", "admin/services/edit.php", "services-create");

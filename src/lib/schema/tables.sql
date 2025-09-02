@@ -69,3 +69,15 @@ CREATE TABLE IF NOT EXISTS `Incident` (
     PRIMARY KEY (`id`),
     FOREIGN KEY (`serviceId`) REFERENCES `Service`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# System setting table
+CREATE TABLE IF NOT EXISTS `SystemSetting` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `key` VARCHAR(256) NOT NULL,
+    `value` VARCHAR(512) NOT NULL,
+    `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO SystemSetting VALUE (NULL, 'registrationEnabled', 'true', NOW(), NOW());

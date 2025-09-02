@@ -5,6 +5,13 @@ if(Auth->isLoggedIn()) {
     Router->redirect(Router->generate("index"));
 }
 
+// Check whether registration is enabled
+$registrationEnabled = SystemSetting::dao()->get("registrationEnabled") === "true";
+if(!$registrationEnabled) {
+    InfoMessage->error(t("Registration is currently disabled."));
+    Router->redirect(Router->generate("auth-login"));
+}
+
 function keepPostField(string $postField): void {
     if(isset($_POST[$postField])) {
         $_SESSION["register-" . $postField] = $_POST[$postField];
