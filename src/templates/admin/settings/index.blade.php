@@ -1,8 +1,8 @@
 @component("components.shells.console", [
-    "title" => t("System settings")
+    "title" => t("Settings")
 ])
     <h1 class="mb-2">
-        {{ t("System settings") }}
+        {{ t("Settings") }}
     </h1>
 
     <form method="post" action="{{ Router->generate("settings-save") }}">

@@ -1,5 +1,6 @@
 {
     "Home": "Home",
+    "Dashboard": "Dashboard",
     "Hello, world!": "Hello, world!",
     "The requested resource could not be found.": "The requested resource could not be found.",
     "There was an error with your request.": "There was an error with your request.",
@@ -57,5 +58,68 @@
     "Your account has been registered.": "Your account has been registered.",
     "Please open the verification link that has been sent to you per email. You can log in to your account once your email address has been verified.": "Please open the verification link that has been sent to you per email. You can log in to your account once your email address has been verified.",
     "Your email address has been verified. You can now log in to your account.": "Your email address has been verified. You can now log in to your account.",
-    "Version:": "Version:"
+    "Version:": "Version:",
+
+    "Search...": "Search...",
+    "Loading...": "Loading...",
+    "No entries": "No entries",
+    "Back": "Back",
+    "Next": "Next",
+
+    "Save": "Save",
+    "Delete": "Delete",
+    "Abort": "Abort",
+    "Confirm": "Confirm",
+
+    "Real-time web service monitoring — Health status, alerts, and performance insights": "Real-time web service monitoring — Health status, alerts, and performance insights",
+
+    "Monitoring insights": "Monitoring insights",
+    "Online": "Online",
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+
+    "HTTP monitoring": "HTTP monitoring",
+    "$$count$$ days ago": "$$count$$ days ago",
+    "Today": "Today",
+    "$$from$$ until $$until$$": "$$from$$ until $$until$$",
+    "Ongoing since $$from$$": "Ongoing since $$from$$",
+    "Ping monitoring": "Ping monitoring",
+
+    "Operational": "Operational",
+    "The service is operating within normal parameters": "The service is operating within normal parameters",
+    "High Response Time": "High Response Time",
+    "The service is experiencing high response times": "The service is experiencing high response times",
+    "Internal Error": "Internal Error",
+    "An internal error has occurred": "An internal error has occurred",
+    "Not Responding": "Not Responding",
+    "Service is not responding": "Service is not responding",
+
+    "No incidents were reported on this day.": "No incidents were reported on this day.",
+    "No data is available for this day.": "No data is available for this day.",
+
+    "Services": "Services",
+    "Notifications": "Notifications",
+    "Settings": "Settings",
+
+    "Create service": "Create service",
+    "Edit service $$name$$": "Edit service „$$name$$”",
+    "Delete service": "Delete service",
+    "Do you really want to delete this service?": "Do you really want to delete this service?",
+    "The service has been saved.": "The service has been saved.",
+    "The service has been deleted.": "The service has been deleted.",
+    "The service that should be edited does not exist.": "The service that should be edited does not exist.",
+    "The service that should be deleted does not exist.": "The service that should be deleted does not exist.",
+    "Could not save the $$monitoringType$$ monitoring settings. Please fill out all the required fields.": "Could not save the „$$monitoringType$$” monitoring settings. Please fill out all the required fields.",
+
+    "Service name": "Service name",
+    "Visible": "Visible",
+    "Order": "Order",
+
+    "Endpoint": "Endpoint",
+    "Expected response code": "Expected response code",
+    "Maximum response time": "Maximum response time",
+
+    "Registration enabled": "Registration enabled",
+    "The settings have been saved.": "The settings have been saved.",
+    "Registration is currently disabled.": "Registration is currently disabled."
 }

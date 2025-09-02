@@ -36,7 +36,7 @@
                    step="1"
                    min="0"
                    class="{{ TailwindUtil::$input }}"
-                   value="{{ !empty($monitoringSettings) ? $monitoringSettings->getExpectationFromArray("maxResponseTime", "") : "200" }}"
+                   value="{{ !empty($monitoringSettings) ? $monitoringSettings->getExpectationFromArray("maxResponseTime", "") : "50" }}"
                    placeholder="{{ t("Maximum response time") }}"
                    {{-- required added by script --}}>
         </div>

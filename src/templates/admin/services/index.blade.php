@@ -1,4 +1,6 @@
-@component("components.shells.console")
+@component("components.shells.console", [
+    "title" => t("Services")
+])
     <h1>
         {{ t("Services") }}
     </h1>

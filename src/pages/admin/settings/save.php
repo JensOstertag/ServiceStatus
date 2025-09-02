@@ -21,5 +21,5 @@ try {
 $registrationEnabled = $post["registrationEnabled"] === 1;
 SystemSetting::dao()->set("registrationEnabled", $registrationEnabled ? "true" : "false");
 
-InfoMessage->success(t("The system settings have been saved."));
+InfoMessage->success(t("The settings have been saved."));
 Router->redirect(Router->generate("settings"));

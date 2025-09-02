@@ -16,7 +16,7 @@ export const initUptime = async (uptime) => {
 
     // Register a plugin that places a text in the center of the doughnut chart
     Chart.register({
-        id: 'textInside',
+        id: "textInside",
         afterDatasetsDraw: function (chart, args, options) {
             let fontSizeSums = 0;
             for(let i = 0; i < options.texts().length; i++) {
@@ -25,6 +25,9 @@ export const initUptime = async (uptime) => {
             }
 
             const ctx = chart.ctx;
+            if(chart.getDatasetMeta(0).data.length === 0) {
+                return;
+            }
             const x = chart.getDatasetMeta(0).data[0].x;
             let y = chart.getDatasetMeta(0).data[0].y - fontSizeSums / 2;
 
@@ -38,10 +41,10 @@ export const initUptime = async (uptime) => {
 
                 y += text.fontSize / 2;
 
-                ctx.font = text.fontSize + 'px ' + text.fontFamily;
+                ctx.font = text.fontSize + "px " + text.fontFamily;
                 ctx.fillStyle = text.color;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
 
                 ctx.fillText(text.text, x, y);
 

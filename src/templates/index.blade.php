@@ -1,6 +1,6 @@
 @component("components.shells.landing")
     @foreach($services as $service)
-        <div class="mb-8">
+        <div class="mb-12">
             <div class="flex justify-between items-center gap-2">
                 <h2 class="mb-4 truncate">
                     {{ $service->getName() }}
@@ -24,7 +24,7 @@
 
             <div class="flex justify-end w-full mt-1">
                 <a href="{{ Router->generate("services-report", ["slug" => $service->getSlug()]) }}"
-                   class="px-2 py-1 rounded-full text-sm truncate bg-primary-500 text-primary-900">
+                   class="flex px-2 py-1 rounded-full text-sm truncate bg-primary-500 hover:bg-primary-600 text-primary-900 transition-all">
                     {{ t("Monitoring insights") }}
                     @include("components.icons.right", ["class" => "inline h-5 w-5"])
                 </a>

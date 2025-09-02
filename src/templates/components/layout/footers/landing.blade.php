@@ -13,10 +13,10 @@
         <div class="flex flex-wrap justify-between gap-2 mt-2 text-sm">
             <div class="flex flex-wrap gap-1 text-xs">
                 <span>
-                    &copy;&nbsp;2020&nbsp;-&nbsp;{{ (new DateTime())->format("Y") }}
+                    Licensed under the <a href="https://github.com/JensOstertag/ServiceStatus/blob/main/LICENSE" class="text-primary-500 hover:text-primary-600">MIT license</a>.
                 </span>
                 <span>
-                    {{-- The authors --}}
+                    Using <a href="{{ Router->generate("dependencies") }}" class="text-primary-500 hover:text-primary-600">these software dependencies</a>.
                 </span>
             </div>
 

@@ -20,7 +20,7 @@ class ReportService {
 
         $end = new DateTimeImmutable();
         $todayMidnight = $end->setTime(0, 0, 0, 0);
-        $start = $todayMidnight->sub(new DateInterval("P" . self::$DAYS . "D"));
+        $start = $todayMidnight->sub(new DateInterval("P" . (self::$DAYS - 1) . "D"));
 
         $rawData = MonitoringResult::dao()->getObjects([
             "monitoringSettingsId" => $monitoringSettings->getId(),
@@ -52,7 +52,7 @@ class ReportService {
     public static function getIncidentData(Service $service): array {
         $end = new DateTimeImmutable();
         $todayMidnight = $end->setTime(0, 0, 0, 0);
-        $start = $todayMidnight->sub(new DateInterval("P" . self::$DAYS . "D"));
+        $start = $todayMidnight->sub(new DateInterval("P" . (self::$DAYS - 1) . "D"));
 
         $incidents = Incident::dao()->getObjects([
             "serviceId" => $service->getId(),

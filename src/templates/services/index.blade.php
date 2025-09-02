@@ -1,4 +1,6 @@
-@component("components.shells.landing")
+@component("components.shells.landing", [
+    "title" => $service->getName()
+])
     <div class="flex flex-col sm:flex-row mb-8 items-center">
         <div class="w-full mb-4">
             <h1 class="mb-1 truncate">
@@ -37,7 +39,7 @@
     <script type="module">
         import * as UptimeReport from "{{ Router->staticFilePath("js/services/report.js") }}";
         UptimeReport.initUptime(
-            {{ $uptime }},
+            {{ $uptime }}
         );
     </script>
 @endcomponent
