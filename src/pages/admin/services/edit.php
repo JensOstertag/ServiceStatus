@@ -28,7 +28,7 @@ if($service instanceof Service) {
     }
 }
 
-echo Blade->run("admin.services.edit", [
+echo Blade->run("pages.admin.services.edit", [
     "service" => $service ?? null,
     "monitoringSettings" => $reindexedMonitoringSettings ?? []
 ]);

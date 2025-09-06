@@ -14,4 +14,4 @@ foreach($visibleServices as $service) {
     $currentStatuses[$service->getId()] = $currentStatus;
 }
 
-echo Blade->run("dependencies");
+echo Blade->run("pages.dependencies");

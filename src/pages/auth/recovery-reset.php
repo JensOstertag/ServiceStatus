@@ -67,4 +67,4 @@ $_SESSION["authRecoveryOtp"] = $otp;
 
 Logger->tag("Recovery")->info("Starting password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
-echo Blade->run("auth.recoveryreset");
+echo Blade->run("pages.auth.recoveryreset");

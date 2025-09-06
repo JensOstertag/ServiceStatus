@@ -43,7 +43,7 @@ foreach(MonitoringType::cases() as $monitoringType) {
     $reports[$monitoringType->value] = ReportService::getReportData($service, $monitoringType);
 }
 
-echo Blade->run("services.index", [
+echo Blade->run("pages.services.index", [
     "service" => $service,
     "currentStatus" => $currentStatus,
     "uptime" => $uptime,
