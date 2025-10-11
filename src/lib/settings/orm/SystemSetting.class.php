@@ -1,6 +1,6 @@
 <?php
 
-namespace app\services;
+namespace app\settings;
 
 class SystemSetting extends \struktal\ORM\GenericRecord {
     public mixed $key = null;

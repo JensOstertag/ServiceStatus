@@ -5,4 +5,4 @@ if(Auth->isLoggedIn()) {
     Router->redirect(Router->generate("index"));
 }
 
-echo Blade->run("auth.recoveryrequest");
+echo Blade->run("pages.auth.recoveryrequest");
