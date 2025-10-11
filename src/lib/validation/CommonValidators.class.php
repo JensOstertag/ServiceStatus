@@ -1,6 +1,6 @@
 <?php
 
-use \struktal\validation\internals\Validator;
+use struktal\validation\internals\Validator;
 
 class CommonValidators {
     public static function service(bool $required = true, array $additionalFilters = [], ?string $errorMessage = null): Validator {
