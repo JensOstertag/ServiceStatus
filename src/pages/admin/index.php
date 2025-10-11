@@ -2,4 +2,4 @@
 
 $user = Auth->enforceLogin(0, Router->generate("auth-login"));
 
-echo Blade->run("admin.index");
+echo Blade->run("pages.admin.index");

@@ -14,7 +14,7 @@ foreach($visibleServices as $service) {
     $currentStatuses[$service->getId()] = $currentStatus;
 }
 
-echo Blade->run("index", [
+echo Blade->run("pages.index", [
     "services" => $visibleServices,
     "incidents" => $incidents,
     "currentStatuses" => $currentStatuses
