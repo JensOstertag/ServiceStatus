@@ -2,6 +2,8 @@
 
 namespace app\monitoring;
 
+use \app\services\MonitoringSettings;
+
 class MonitoringServiceHTTP extends MonitoringService {
     public static function run(MonitoringSettings $settings): MonitoringResult {
         // Instantiate curl handle

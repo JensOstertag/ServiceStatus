@@ -22,8 +22,8 @@ enum MonitoringType: int {
 
     public function getValidator(bool $enabled = false): \struktal\validation\internals\Validator {
         return match($this) {
-            self::HTTP => CommonValidators::httpMonitoringSettings($enabled),
-            self::PING => CommonValidators::pingMonitoringSettings($enabled),
+            self::HTTP => \CommonValidators::httpMonitoringSettings($enabled),
+            self::PING => \CommonValidators::pingMonitoringSettings($enabled)
         };
     }
 

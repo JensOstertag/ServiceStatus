@@ -2,6 +2,8 @@
 
 namespace app\monitoring;
 
+use \app\services\MonitoringSettings;
+
 class MonitoringServicePing extends MonitoringService {
     public static function run(MonitoringSettings $settings): MonitoringResult {
         $host = self::parseEndpoint($settings->getEndpoint());

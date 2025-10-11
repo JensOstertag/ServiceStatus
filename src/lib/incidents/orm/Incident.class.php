@@ -2,11 +2,14 @@
 
 namespace app\incidents;
 
+use \app\services\Service;
+use \app\monitoring\ServiceStatus;
+
 class Incident extends \struktal\ORM\GenericEntity {
     public ?int $serviceId = null;
     public ?int $status = null;
-    public ?DateTime $from = null;
-    public ?DateTime $until = null;
+    public ?\DateTimeImmutable $from = null;
+    public ?\DateTimeImmutable $until = null;
 
     private ?Service $service = null;
     public function getService(): ?Service {
@@ -44,19 +47,19 @@ class Incident extends \struktal\ORM\GenericEntity {
         $this->status = $status;
     }
 
-    public function getFrom(): ?DateTime {
+    public function getFrom(): ?\DateTimeImmutable {
         return $this->from;
     }
 
-    public function setFrom(?DateTime $from): void {
+    public function setFrom(?\DateTimeImmutable $from): void {
         $this->from = $from;
     }
 
-    public function getUntil(): ?DateTime {
+    public function getUntil(): ?\DateTimeImmutable {
         return $this->until;
     }
 
-    public function setUntil(?DateTime $until): void {
+    public function setUntil(?\DateTimeImmutable $until): void {
         $this->until = $until;
     }
 }

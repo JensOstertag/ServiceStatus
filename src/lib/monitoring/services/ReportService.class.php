@@ -2,6 +2,10 @@
 
 namespace app\monitoring;
 
+use \app\services\Service;
+use \app\services\MonitoringSettings;
+use \app\incidents\Incident;
+
 class ReportService {
     public static int $DAYS = 60;
 
@@ -20,9 +24,9 @@ class ReportService {
             return [];
         }
 
-        $end = new DateTimeImmutable();
+        $end = new \DateTimeImmutable();
         $todayMidnight = $end->setTime(0, 0, 0, 0);
-        $start = $todayMidnight->sub(new DateInterval("P" . (self::$DAYS - 1) . "D"));
+        $start = $todayMidnight->sub(new \DateInterval("P" . (self::$DAYS - 1) . "D"));
 
         $rawData = MonitoringResult::dao()->getObjects([
             "monitoringSettingsId" => $monitoringSettings->getId(),
@@ -34,7 +38,7 @@ class ReportService {
         $carryDatetime = $start;
         while($carryDatetime <= $todayMidnight) {
             $data[$carryDatetime->format("Y-m-d")] = [];
-            $carryDatetime = $carryDatetime->add(new DateInterval("P1D"));
+            $carryDatetime = $carryDatetime->add(new \DateInterval("P1D"));
         }
 
         foreach($rawData as $monitoringResult) {
@@ -52,9 +56,9 @@ class ReportService {
     }
 
     public static function getIncidentData(Service $service): array {
-        $end = new DateTimeImmutable();
+        $end = new \DateTimeImmutable();
         $todayMidnight = $end->setTime(0, 0, 0, 0);
-        $start = $todayMidnight->sub(new DateInterval("P" . (self::$DAYS - 1) . "D"));
+        $start = $todayMidnight->sub(new \DateInterval("P" . (self::$DAYS - 1) . "D"));
 
         $incidents = Incident::dao()->getObjects([
             "serviceId" => $service->getId(),
@@ -66,15 +70,15 @@ class ReportService {
         $carryDatetime = $start;
         while($carryDatetime <= $todayMidnight) {
             $data[$carryDatetime->format("Y-m-d")] = [];
-            $carryDatetime = $carryDatetime->add(new DateInterval("P1D"));
+            $carryDatetime = $carryDatetime->add(new \DateInterval("P1D"));
         }
 
         /** @var Incident $incident */
         foreach($incidents as $incident) {
-            $start = DateTimeImmutable::createFromMutable($incident->getFrom());
-            $end = new DateTimeImmutable();
+            $start = \DateTimeImmutable::createFromMutable($incident->getFrom());
+            $end = new \DateTimeImmutable();
             if($incident->getUntil() !== null) {
-                $end = DateTimeImmutable::createFromMutable($incident->getUntil());
+                $end = \DateTimeImmutable::createFromMutable($incident->getUntil());
             }
             $carryDatetime = $start->setTime(0, 0, 0);
 
@@ -84,7 +88,7 @@ class ReportService {
                     $data[$date][] = $incident;
                 }
 
-                $carryDatetime = $carryDatetime->add(new DateInterval("P1D"));
+                $carryDatetime = $carryDatetime->add(new \DateInterval("P1D"));
             }
         }
 

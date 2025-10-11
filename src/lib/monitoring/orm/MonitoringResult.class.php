@@ -2,6 +2,9 @@
 
 namespace app\monitoring;
 
+use \app\services\Service;
+use \app\services\MonitoringSettings;
+
 class MonitoringResult extends \struktal\ORM\GenericEntity {
     public ?int $monitoringSettingsId = null;
     public ?int $status = null;

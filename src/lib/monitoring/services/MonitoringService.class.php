@@ -2,6 +2,10 @@
 
 namespace app\monitoring;
 
+use \app\services\MonitoringSettings;
+use \app\incidents\Incident;
+use \app\incidents\IncidentService;
+
 class MonitoringService {
     private static function dispatch(MonitoringSettings $settings): MonitoringService {
         $monitoringType = $settings->getMonitoringTypeEnum();
