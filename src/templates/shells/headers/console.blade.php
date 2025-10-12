@@ -18,12 +18,12 @@
     </header>
 </div>
 
-@component("components.layout.sidebars.console")
+@component("shells.sidebars.console")
     {{-- Sidebar navigation list --}}
     <nav>
-        @include("components.layout.sidebars.consolelist")
+        @include("shells.sidebars.consolelist")
     </nav>
 
     {{-- Account info --}}
-    @include("components.layout.sidebars.accountinfo")
+    @include("shells.sidebars.accountinfo")
 @endcomponent
