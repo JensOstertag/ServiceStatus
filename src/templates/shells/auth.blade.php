@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full" lang="{{ Translator->getLocaleForHtmlLang() }}">
+<html lang="{{ Translator->getLocaleForHtmlLang() }}" class="h-full">
     <head>
         {{-- Encoding --}}
         <meta charset="utf-8">
@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         {{-- SEO --}}
-        @include("components.layout.metatags", [
+        @include("shells.generic.metatags", [
             "title" => $title ?? null,
             "hideFromSeo" => $hideFromSeo ?? true // Auth pages are hidden by default
         ])
@@ -41,7 +41,7 @@
                     </a>
                 </header>
 
-                @include("components.layout.infomessagelist")
+                @include("shells.generic.infomessagelist")
 
                 <main>
                     {!! $slot !!}

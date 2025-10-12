@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         {{-- SEO --}}
-        @include("components.layout.metatags", [
+        @include("shells.generic.metatags", [
             "title" => $title ?? null,
             "hideFromSeo" => $hideFromSeo ?? false
         ])
@@ -34,12 +34,12 @@
             init("{{ Router->generate("translations-api") }}");
         </script>
 
-        @include("components.layout.headers.console")
+        @include("shells.headers.console")
 
         <div class="pt-22 pb-6 px-6">
             <main class="md:ml-96 transition-all"
                   data-sidebar-active-classes="md:ml-96" data-sidebar-inactive-classes="md:ml-0">
-                @include("components.layout.infomessagelist")
+                @include("shells.generic.infomessagelist")
 
                 {!! $slot !!}
             </main>
