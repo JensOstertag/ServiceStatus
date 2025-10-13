@@ -1,25 +1,22 @@
 <?php
 
-$user = Auth->enforceLogin(0, Router->generate("auth-login"));
+$user = Auth->requireLogin(\app\users\PermissionLevel::USER, Router->generate("auth-login"));
 
-$validation = Validation->create()
+$get = Validation->create()
     ->withErrorMessage(t("Please fill out all the required fields."))
     ->array()
     ->required()
     ->children([
         "service" => CommonValidators::service(false, [], t("The service that should be edited does not exist."))
     ])
-    ->build();
-try {
-    $get = $validation->getValidatedValue($_GET);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("services"));
-}
+    ->validate($_GET, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("services"));
+    });
 
 $service = $get["service"];
-if($service instanceof Service) {
-    $monitoringSettings = MonitoringSettings::dao()->getObjects([
+if($service instanceof \app\services\Service) {
+    $monitoringSettings = \app\services\MonitoringSettings::dao()->getObjects([
         "serviceId" => $service->getId()
     ]);
     $reindexedMonitoringSettings = [];

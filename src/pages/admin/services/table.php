@@ -1,10 +1,10 @@
 <?php
 
-$user = Auth->enforceLogin(0, Router->generate("auth-login"));
+$user = Auth->requireLogin(\app\users\PermissionLevel::USER, Router->generate("auth-login"));
 
-$services = Service::dao()->getObjects([], "order");
+$services = \app\services\ServiceService::getServicesOverview(false);
 
-$services = array_map(function(Service $service) {
+$services = array_map(function(\app\services\Service $service) {
     $array = $service->toArray();
     $array["editHref"] = Router->generate("services-edit", ["service" => $service->getId()]);
     unset($array["id"]);
