@@ -8,7 +8,7 @@ class CommonValidators {
         if($errorMessage !== null) {
             $validation->withErrorMessage($errorMessage);
         }
-        $validation->inDatabase(Service::dao(), $additionalFilters);
+        $validation->inDatabase(\app\services\Service::dao(), $additionalFilters);
         if($required) {
             $validation->required();
         }

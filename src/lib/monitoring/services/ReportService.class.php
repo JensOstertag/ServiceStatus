@@ -75,10 +75,10 @@ class ReportService {
 
         /** @var Incident $incident */
         foreach($incidents as $incident) {
-            $start = \DateTimeImmutable::createFromMutable($incident->getFrom());
+            $start = $incident->getFrom();
             $end = new \DateTimeImmutable();
             if($incident->getUntil() !== null) {
-                $end = \DateTimeImmutable::createFromMutable($incident->getUntil());
+                $end = $incident->getUntil();
             }
             $carryDatetime = $start->setTime(0, 0, 0);
 
