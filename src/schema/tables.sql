@@ -1,5 +1,5 @@
 # User table
-CREATE TABLE IF NOT EXISTS `User` (
+CREATE TABLE IF NOT EXISTS `app\users\User` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # Services table
-CREATE TABLE IF NOT EXISTS `Service` (
+CREATE TABLE IF NOT EXISTS `app\services\Service` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(256) NOT NULL,
     `slug` VARCHAR(256) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # Monitoring settings table
-CREATE TABLE IF NOT EXISTS `MonitoringSettings` (
+CREATE TABLE IF NOT EXISTS `app\services\MonitoringSettings` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `serviceId` INT NOT NULL,
     `monitoringType` INT NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `MonitoringSettings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # Monitoring results table
-CREATE TABLE IF NOT EXISTS `MonitoringResult` (
+CREATE TABLE IF NOT EXISTS `app\monitoring\MonitoringResult` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `monitoringSettingsId` INT NOT NULL,
     `status` INT NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `MonitoringResult` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # Incidents table
-CREATE TABLE IF NOT EXISTS `Incident` (
+CREATE TABLE IF NOT EXISTS `app\incidents\Incident` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `serviceId` INT NOT NULL,
     `status` INT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `Incident` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # System setting table
-CREATE TABLE IF NOT EXISTS `SystemSetting` (
+CREATE TABLE IF NOT EXISTS `app\settings\SystemSetting` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `key` VARCHAR(256) NOT NULL,
     `value` VARCHAR(512) NOT NULL,
