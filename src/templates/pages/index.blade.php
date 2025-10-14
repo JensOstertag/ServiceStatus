@@ -8,10 +8,10 @@
 
                 <div class="mb-4 px-2 py-1 rounded-full text-sm truncate
                     @switch($currentStatuses[$service->getId()])
-                        @case(ServiceStatus::OPERATIONAL) bg-safe-500 text-safe-900 @break
-                        @case(ServiceStatus::HIGH_RESPONSE_TIME) bg-warning-500 text-warning-900 @break
-                        @case(ServiceStatus::INTERNAL_ERROR) bg-danger-500 text-danger-900 @break
-                        @case(ServiceStatus::NOT_RESPONDING) bg-danger-500 text-danger-900 @break
+                        @case(\app\monitoring\ServiceStatus::OPERATIONAL) bg-safe-500 text-safe-900 @break
+                        @case(\app\monitoring\ServiceStatus::HIGH_RESPONSE_TIME) bg-warning-500 text-warning-900 @break
+                        @case(\app\monitoring\ServiceStatus::INTERNAL_ERROR) bg-danger-500 text-danger-900 @break
+                        @case(\app\monitoring\ServiceStatus::NOT_RESPONDING) bg-danger-500 text-danger-900 @break
                         @default bg-surface-500 text-surface-900
                     @endswitch">
                     {{ $currentStatuses[$service->getId()]->getLabelText() }}
