@@ -9,11 +9,14 @@ class MonitoringServicePing extends MonitoringService {
         $host = self::parseEndpoint($settings->getEndpoint());
 
         // Execute ping command
-        $command = "ping -4 -c 1 $host";
+        $command = "ping -4 -c 1 $host 2>&1";
         exec($command, $output, $status);
 
         // Check if ping was successful
         if($status !== 0) {
+            Logger->tag("Monitoring-Ping")->warn("Ping command failed for endpoint: " . $settings->getEndpoint());
+            Logger->tag("Monitoring-Ping")->warn("Command: $command Status: $status Output: " . implode("\n", $output));
+
             $result = new MonitoringResult();
             $result->setMonitoringSettingsId($settings->getId());
             $result->setStatus(ServiceStatus::NOT_RESPONDING->value);
@@ -30,6 +33,11 @@ class MonitoringServicePing extends MonitoringService {
                 $responseTime = (float) $matches[1];
                 break;
             }
+        }
+
+        if($responseTime === null) {
+            Logger->tag("Monitoring-Ping")->warn("Ping successful, but response time could not be parsed for endpoint: " . $settings->getEndpoint());
+            Logger->tag("Monitoring-Ping")->warn("Command: $command Status: $status Output: " . implode("\n", $output));
         }
 
         $serviceStatus = self::validateServiceStatus($settings, $responseTime);
