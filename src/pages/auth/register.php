@@ -6,8 +6,7 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether registration is enabled
-$registrationEnabled = SystemSetting::dao()->get("registrationEnabled") === "true";
-if(!$registrationEnabled) {
+if(!\app\settings\SettingsService::registrationAllowed()) {
     InfoMessage->error(t("Registration is currently disabled."));
     Router->redirect(Router->generate("auth-login"));
 }

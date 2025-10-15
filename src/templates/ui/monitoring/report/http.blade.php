@@ -1,13 +1,13 @@
 <div class="flex gap-0.5 md:gap-2 mb-1">
     @foreach($reportData as $date => $dayData)
         @php
-            $dayStatus = ReportService::getHighestStatus($dayData)
+            $dayStatus = \app\monitoring\ReportService::getHighestStatus($dayData)
         @endphp
         <div class="http-tooltip inline-block w-full h-12 rounded-full
             @if($dayStatus === null) bg-surface-500
-            @elseif($dayStatus === ServiceStatus::OPERATIONAL) bg-safe-500
-            @elseif($dayStatus === ServiceStatus::HIGH_RESPONSE_TIME) bg-warning-500
-            @elseif($dayStatus === ServiceStatus::INTERNAL_ERROR || $dayStatus === ServiceStatus::NOT_RESPONDING) bg-danger-500
+            @elseif($dayStatus === \app\monitoring\ServiceStatus::OPERATIONAL) bg-safe-500
+            @elseif($dayStatus === \app\monitoring\ServiceStatus::HIGH_RESPONSE_TIME) bg-warning-500
+            @elseif($dayStatus === \app\monitoring\ServiceStatus::INTERNAL_ERROR || $dayStatus === \app\monitoring\ServiceStatus::NOT_RESPONDING) bg-danger-500
             @endif
         ">
             <div class="tooltip hidden">
@@ -72,7 +72,7 @@
     @endforeach
 </div>
 <div class="flex justify-between w-full">
-    <span class="text-sm text-surface-500">{{ t("\$\$count\$\$ days ago", ["count" => ReportService::$DAYS]) }}</span>
+    <span class="text-sm text-surface-500">{{ t("\$\$count\$\$ days ago", ["count" => \app\monitoring\ReportService::$DAYS]) }}</span>
     <span class="text-sm text-surface-500">{{ t("Today") }}</span>
 </div>
 

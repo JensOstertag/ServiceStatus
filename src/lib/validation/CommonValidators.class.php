@@ -1,6 +1,6 @@
 <?php
 
-use \struktal\validation\internals\Validator;
+use struktal\validation\internals\Validator;
 
 class CommonValidators {
     public static function service(bool $required = true, array $additionalFilters = [], ?string $errorMessage = null): Validator {
@@ -8,7 +8,7 @@ class CommonValidators {
         if($errorMessage !== null) {
             $validation->withErrorMessage($errorMessage);
         }
-        $validation->inDatabase(Service::dao(), $additionalFilters);
+        $validation->inDatabase(\app\services\Service::dao(), $additionalFilters);
         if($required) {
             $validation->required();
         }

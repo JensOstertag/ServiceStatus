@@ -1,26 +1,23 @@
 <?php
 
-$user = Auth->enforceLogin(0, Router->generate("auth-login"));
+$user = Auth->requireLogin(\app\users\PermissionLevel::USER, Router->generate("auth-login"));
 
-$validation = Validation->create()
+$get = Validation->create()
     ->withErrorMessage(t("Please fill out all the required fields."))
     ->array()
     ->required()
     ->children([
         "service" => CommonValidators::service(true, [], t("The service that should be deleted does not exist."))
     ])
-    ->build();
-try {
-    $get = $validation->getValidatedValue($_GET);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("services"));
-}
+    ->validate($_GET, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("services"));
+    });
 
 $service = $get["service"];
 
 $service->preDelete();
-Service::dao()->delete($service);
+\app\services\Service::dao()->delete($service);
 
 Logger->tag("Services")->info("User {$user->getId()} ({$user->getUsername()}) deleted the service {$service->getId()} ({$service->getName()})");
 

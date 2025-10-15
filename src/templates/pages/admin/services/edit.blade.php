@@ -55,7 +55,7 @@
         </div>
 
         <div class="flex flex-col md:flex-row md:gap-4">
-            @foreach(MonitoringType::cases() as $type)
+            @foreach(\app\monitoring\MonitoringType::cases() as $type)
                 @include("ui.monitoring.edit." . strtolower($type->name), [
                     "monitoringSettings" => $monitoringSettings[$type->value] ?? null
                 ])

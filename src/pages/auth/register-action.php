@@ -6,8 +6,7 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether registration is enabled
-$registrationEnabled = SystemSetting::dao()->get("registrationEnabled") === "true";
-if(!$registrationEnabled) {
+if(!\app\settings\SettingsService::registrationAllowed()) {
     InfoMessage->error(t("Registration is currently disabled."));
     Router->redirect(Router->generate("auth-login"));
 }
@@ -19,7 +18,7 @@ function keepPostField(string $postField): void {
 }
 
 // Check whether form fields are given
-if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password"]) || empty($_POST["password-repeat"])) {
+if(empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["password-repeat"])) {
     keepPostField("username");
     keepPostField("email");
 
@@ -27,14 +26,16 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
     Router->redirect(Router->generate("auth-register"));
 }
 
-// Check whether username and email are valid
-if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
+// Clean up username and email
+try {
+    $username = \app\users\Validations::sanitizeUsername($_POST["username"]);
+    $email = \app\users\Validations::sanitizeEmail($_POST["email"]);
+} catch(\app\users\InvalidUsernameException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified username is invalid. Please follow the required username scheme."));
     Router->redirect(Router->generate("auth-register"));
-}
-if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+} catch(\app\users\InvalidEmailException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
@@ -42,33 +43,26 @@ if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 }
 
 // Check for existing users with the specified username or email
-$username = strtolower($_POST["username"]);
-$email = strtolower($_POST["email"]);
-$existingUsername = User::dao()->getObjects(["username" => $username]);
-$existingEmail = User::dao()->getObjects(["email" => $email]);
-if(!empty($existingUsername)) {
-    if(empty($existingEmail)) {
-        keepPostField("email");
-    }
+if(\app\users\UserService::userExists($username, null)) {
+    keepPostField("email");
     InfoMessage->error(t("An account with this username already exists. Please choose another one."));
     Router->redirect(Router->generate("auth-register"));
 }
-if(!empty($existingUsername) || !empty($existingEmail)) {
-    if(empty($existingUsername)) {
-        keepPostField("username");
-    }
+if(\app\users\UserService::userExists(null, $email)) {
+    keepPostField("username");
     InfoMessage->error(t("An account with this email already exists. If that is your account, please log in instead."));
     Router->redirect(Router->generate("auth-register"));
 }
 
 // Check passwords
-if($_POST["password"] !== $_POST["password-repeat"]) {
+try {
+    \app\users\Validations::checkTwoPasswords($_POST["password"], $_POST["password-repeat"]);
+} catch(\app\users\PasswordMismatchException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-register"));
-}
-if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+} catch(\app\users\WeakPasswordException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
@@ -76,27 +70,6 @@ if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"]
 }
 
 // Register user
-$oneTimePassword = User::dao()->generateOneTimePassword();
-$user = User::dao()->register($username, $_POST["password"], $email, 1, $oneTimePassword);
-
-// Send verification email
-$otpIdEncoded = urlencode(base64_encode($user->getId()));
-$otpEncoded = urlencode($oneTimePassword);
-$verificationLink = Router->generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
-$mail = new \struktal\MailWrapper\MailWrapper();
-$mail->Subject = t("Verify your email address");
-$mail->Body = t("A new \$\$appName\$\$ account has been registered with this email address.", [
-        "appName" => Config->getAppName()
-    ]) . "\r\n"
-    . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
-    . $verificationLink . "\r\n"
-    . "\r\n"
-    . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
-        "appName" => Config->getAppName()
-    ]);
-$mail->addAddress($email);
-$mail->send();
-
-Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
+$user = \app\users\UserService::register($username, $_POST["password"], $email, \app\users\PermissionLevel::USER);
 
 Router->redirect(Router->generate("auth-register-complete"));

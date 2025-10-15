@@ -1,6 +1,6 @@
 <?php
 
-$validation = Validation->create()
+$get = Validation->create()
     ->array()
     ->required()
     ->children([
@@ -10,27 +10,23 @@ $validation = Validation->create()
             ->maxLength(256)
             ->build()
     ])
-    ->build();
+    ->validate($_GET, function(\struktal\validation\ValidationException $e) {
+        Router->redirect(Router->generate("index"));
+    });
 
-try {
-    $get = $validation->getValidatedValue($_GET);
-} catch(\struktal\Validation\ValidationException $e) {
-    Router->redirect(Router->generate("index"));
-}
-
-$service = Service::dao()->getObject([
+$service = \app\services\Service::dao()->getObject([
     "slug" => $get["slug"]
 ]);
 
-if(!$service instanceof Service) {
+if(!$service instanceof \app\services\Service) {
     Router->redirect(Router->generate("404"));
 }
 
-$currentStatus = ReportService::getCurrentStatus($service);
+$currentStatus = \app\monitoring\ReportService::getCurrentStatus($service);
 
-$uptime = ReportService::getUptime($service);
+$uptime = \app\monitoring\ReportService::getUptime($service);
 
-$monitoringSettings = MonitoringSettings::dao()->getObjects([
+$monitoringSettings = \app\services\MonitoringSettings::dao()->getObjects([
     "serviceId" => $service->getId()
 ]);
 $enabledMonitoringTypes = [];
@@ -39,8 +35,8 @@ foreach($monitoringSettings as $monitoringSetting) {
 }
 
 $reports = [];
-foreach(MonitoringType::cases() as $monitoringType) {
-    $reports[$monitoringType->value] = ReportService::getReportData($service, $monitoringType);
+foreach(\app\monitoring\MonitoringType::cases() as $monitoringType) {
+    $reports[$monitoringType->value] = \app\monitoring\ReportService::getReportData($service, $monitoringType);
 }
 
 echo Blade->run("pages.services.index", [
