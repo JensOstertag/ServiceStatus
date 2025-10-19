@@ -8,46 +8,44 @@ class MonitoringServicePing extends MonitoringService {
     public static function run(MonitoringSettings $settings): MonitoringResult {
         $host = self::parseEndpoint($settings->getEndpoint());
 
-        // Execute ping command
-        $command = "ping -4 -c 1 $host 2>&1";
-        exec($command, $output, $status);
+        $responseTime = null;
+        $command = "";
+        $output = [];
+        $status = -1;
+
+        for($attempt = 0; $attempt < 3; $attempt++) {
+            // Execute ping command
+            [ $responseTime, $command, $output, $status ] = self::ping($host);
+
+            // If ping was successful, break the loop
+            if($responseTime !== false && $responseTime !== null) {
+                break;
+            }
+
+            // Wait before retrying
+            usleep(1000000); // 1000 ms
+        }
+
+        $result = new MonitoringResult();
+        $result->setMonitoringSettingsId($settings->getId());
+        $result->setResponseCode(null);
 
         // Check if ping was successful
-        if($status !== 0) {
+        if($responseTime === false || $responseTime === null) {
             Logger->tag("Monitoring-Ping")->warn("Ping command failed for endpoint: " . $settings->getEndpoint());
             Logger->tag("Monitoring-Ping")->warn("Command: $command Status: $status Output: " . implode("\n", $output));
 
-            $result = new MonitoringResult();
-            $result->setMonitoringSettingsId($settings->getId());
             $result->setStatus(ServiceStatus::NOT_RESPONDING->value);
             $result->setResponseTime(null);
-            $result->setResponseCode(null);
             MonitoringResult::dao()->save($result);
             return $result;
-        }
-
-        // Parse output to get response time
-        $responseTime = null;
-        foreach($output as $line) {
-            if(preg_match("/time=([\d\.]+)\s*ms/", $line, $matches)) {
-                $responseTime = (float) $matches[1];
-                break;
-            }
-        }
-
-        if($responseTime === null) {
-            Logger->tag("Monitoring-Ping")->warn("Ping successful, but response time could not be parsed for endpoint: " . $settings->getEndpoint());
-            Logger->tag("Monitoring-Ping")->warn("Command: $command Status: $status Output: " . implode("\n", $output));
         }
 
         $serviceStatus = self::validateServiceStatus($settings, $responseTime);
 
         // Create new response object
-        $result = new MonitoringResult();
-        $result->setMonitoringSettingsId($settings->getId());
         $result->setStatus($serviceStatus->value);
         $result->setResponseTime($responseTime);
-        $result->setResponseCode(null);
         MonitoringResult::dao()->save($result);
 
         return $result;
@@ -62,6 +60,31 @@ class MonitoringServicePing extends MonitoringService {
         }
 
         return ServiceStatus::OPERATIONAL;
+    }
+
+    private static function ping(string $host): array {
+        // Execute ping command
+        $command = "ping -4 -c 1 $host 2>&1";
+        exec($command, $output, $status);
+
+        if($status !== 0) {
+            return [ false, $command, $output, $status ];
+        }
+
+        // Parse output to get response time
+        $responseTime = null;
+        foreach($output as $line) {
+            if(preg_match("/time=([\d\.]+)\s*ms/", $line, $matches)) {
+                $responseTime = (float) $matches[1];
+                break;
+            }
+        }
+
+        if($responseTime === null) {
+            return [ false, $command, $output, $status ];
+        }
+
+        return [ $responseTime, $command, $output, $status ];
     }
 
     private static function parseEndpoint(string $endpoint): string {
