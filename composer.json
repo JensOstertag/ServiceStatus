@@ -1,7 +1,7 @@
 {
     "name": "jensostertag/servicestatus",
     "description": "Web service monitoring application",
-    "version": "v2.0.0-alpha",
+    "version": "dev-latest",
     "type": "project",
     "license": "MIT",
     "require": {
