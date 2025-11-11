@@ -131,7 +131,7 @@ export const initUptime = async (uptime) => {
     });
 }
 
-export const initHttp = () => {
+export const initHttp = (data, start, end) => {
     document.querySelectorAll(".http-tooltip").forEach((element, index) => {
         tippy(element, {
             allowHTML: true,
@@ -140,9 +140,15 @@ export const initHttp = () => {
             theme: "tailwind"
         });
     });
+
+    initChart("httpReportChart", data, start, end);
 }
 
 export const initPing = (data, start, end) => {
+    initChart("pingReportChart", data, start, end);
+}
+
+const initChart = (id, data, start, end) => {
     let chartLabels = [];
     let chartData = [];
 
@@ -163,7 +169,7 @@ export const initPing = (data, start, end) => {
         return gradient;
     }
 
-    const ctx = document.getElementById("pingReportChart").getContext("2d");
+    const ctx = document.getElementById(id).getContext("2d");
     const pingChart = new Chart(ctx, {
         type: "line",
         data: {
