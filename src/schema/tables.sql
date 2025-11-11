@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `app\services\MonitoringSettings` (
     `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`serviceId`) REFERENCES `Service`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`serviceId`) REFERENCES `app\services\Service`(`id`) ON DELETE CASCADE,
     UNIQUE KEY (`serviceId`, `monitoringType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `app\monitoring\MonitoringResult` (
     `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`monitoringSettingsId`) REFERENCES `MonitoringSettings`(`id`) ON DELETE CASCADE
+    FOREIGN KEY (`monitoringSettingsId`) REFERENCES `app\services\MonitoringSettings`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # Incidents table
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `app\incidents\Incident` (
     `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`serviceId`) REFERENCES `Service`(`id`) ON DELETE CASCADE
+    FOREIGN KEY (`serviceId`) REFERENCES `app\services\Service`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # System setting table
@@ -80,4 +80,4 @@ CREATE TABLE IF NOT EXISTS `app\settings\SystemSetting` (
     PRIMARY KEY (`id`),
     UNIQUE KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO SystemSetting VALUE (NULL, 'registrationEnabled', 'true', NOW(), NOW());
+INSERT INTO `app\settings\SystemSetting` VALUE (NULL, 'registrationEnabled', 'true', NOW(), NOW());
