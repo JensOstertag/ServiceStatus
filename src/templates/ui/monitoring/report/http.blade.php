@@ -77,7 +77,7 @@
 </div>
 
 <div class="mt-4">
-    <canvas id="httpReportChart"></canvas>
+    <canvas id="httpReportChart" class="w-full h-48"></canvas>
 </div>
 
 <script type="module">
@@ -89,14 +89,14 @@
     @endphp
     ServiceReport.initHttp(
         [
-                @foreach($reportData as $date => $dayData)
-                @php
-                    if($firstDate === null) {
-                        $firstDate = $date . " 00:00:00";
-                    }
-                    $lastDate = $date . " 00:00:00";
-                @endphp
-                @foreach($dayData as $data)
+            @foreach($reportData as $date => $dayData)
+            @php
+                if($firstDate === null) {
+                    $firstDate = $date . " 00:00:00";
+                }
+                $lastDate = $date . " 00:00:00";
+            @endphp
+            @foreach($dayData as $data)
                 @php
                     if($monitoringSettings === null) {
                         $monitoringSettings = $data->getMonitoringSettings();
@@ -107,11 +107,11 @@
                     }
                 @endphp
 
-            {
-                timestamp: "{{ $data->getCreated()->format("Y-m-d H:i:s") }}",
-                responseTime: {{ $data->getResponseTime() ?? "null" }},
-            },
-            @endforeach
+                {
+                    timestamp: "{{ $data->getCreated()->format("Y-m-d H:i:s") }}",
+                    responseTime: {{ $data->getResponseTime() ?? "null" }},
+                },
+                @endforeach
             @endforeach
         ],
         "{{ $firstDate }}",
