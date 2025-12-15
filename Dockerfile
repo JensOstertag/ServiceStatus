@@ -43,7 +43,7 @@ RUN apk --no-cache add tzdata
 RUN apk --no-cache add nginx php85 php85-fpm git
 
 # Install PHP packages
-RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-simplexml php-dom php-ctype php-apcu
+RUN apk --no-cache add php85-session php85-tokenizer php85-mysqli php85-pdo php85-pdo_mysql php85-curl php85-gd php85-intl php85-mbstring php85-iconv php85-xml php85-simplexml php85-xmlwriter php85-dom php85-ctype php85-apcu
 
 # Set working directory
 WORKDIR /app
