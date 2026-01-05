@@ -30,7 +30,7 @@
         "struktal/struktal-composer-reader": "^1.0.0"
     },
     "require-dev": {
-        "pestphp/pest": "~3.8.2"
+        "pestphp/pest": "~4.3.1"
     },
     "config": {
         "vendor-dir": "vendor",
